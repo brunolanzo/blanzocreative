@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ProjectBlock } from "@/data/projects";
+import { ProjectBlock } from "@/lib/types";
 import FadeIn from "./FadeIn";
 import VideoPlayer from "./VideoPlayer";
 

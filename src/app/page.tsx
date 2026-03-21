@@ -1,9 +1,14 @@
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getPublishedProjects } from "@/lib/projects";
 import FadeIn from "@/components/FadeIn";
 import LogoBackground from "@/components/LogoBackground";
+import ProjectCard from "@/components/ProjectCard";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const projects = await getPublishedProjects();
+
   return (
     <>
       {/* Hero Section */}
@@ -58,32 +63,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {projects.slice(0, 4).map((project, index) => (
               <FadeIn key={project.slug} delay={index * 100}>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="group block"
-                >
-                  <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-100 group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-6xl font-black text-gray-300/50 uppercase">
-                        {project.title.charAt(0)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-gray-500 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-gray-400 mt-1">
-                        {project.category}
-                      </p>
-                    </div>
-                    <span className="text-xs text-gray-400 font-medium mt-1">
-                      {project.year}
-                    </span>
-                  </div>
-                </Link>
+                <ProjectCard project={project} />
               </FadeIn>
             ))}
           </div>

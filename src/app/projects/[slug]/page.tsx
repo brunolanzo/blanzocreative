@@ -1,22 +1,18 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getProjectBySlug, getPublishedProjects } from "@/lib/projects";
 import ProjectBlocks from "@/components/ProjectBlocks";
 import FadeIn from "@/components/FadeIn";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return { title: "Project Not Found" };
   return {
     title: `${project.title} — Blanzo Creative`,
@@ -26,14 +22,15 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
-  const currentIndex = projects.findIndex((p) => p.slug === slug);
-  const nextProject = projects[(currentIndex + 1) % projects.length];
+  const allProjects = await getPublishedProjects();
+  const currentIndex = allProjects.findIndex((p) => p.slug === slug);
+  const nextProject = allProjects[(currentIndex + 1) % allProjects.length];
 
   return (
     <article className="pb-24">
@@ -67,26 +64,28 @@ export default async function ProjectPage({ params }: Props) {
       <ProjectBlocks blocks={project.blocks} />
 
       {/* Next Project */}
-      <section className="mt-24 border-t border-gray-200 pt-16 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto">
-          <FadeIn>
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
-              Next Project
-            </p>
-            <Link
-              href={`/projects/${nextProject.slug}`}
-              className="group block"
-            >
-              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight group-hover:text-gray-500 transition-colors">
-                {nextProject.title}
-              </h2>
-              <p className="text-sm text-gray-400 mt-2">
-                {nextProject.category}
+      {nextProject && nextProject.slug !== slug && (
+        <section className="mt-24 border-t border-gray-200 pt-16 px-6 md:px-10">
+          <div className="max-w-[1400px] mx-auto">
+            <FadeIn>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+                Next Project
               </p>
-            </Link>
-          </FadeIn>
-        </div>
-      </section>
+              <Link
+                href={`/projects/${nextProject.slug}`}
+                className="group block"
+              >
+                <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight group-hover:text-gray-500 transition-colors">
+                  {nextProject.title}
+                </h2>
+                <p className="text-sm text-gray-400 mt-2">
+                  {nextProject.category}
+                </p>
+              </Link>
+            </FadeIn>
+          </div>
+        </section>
+      )}
     </article>
   );
 }
