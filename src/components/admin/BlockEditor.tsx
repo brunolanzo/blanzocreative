@@ -28,6 +28,7 @@ const BLOCK_TYPES: { type: ProjectBlock["type"]; label: string }[] = [
   { type: "image-grid", label: "Image Grid" },
   { type: "video", label: "Video" },
   { type: "gif", label: "GIF" },
+  { type: "role", label: "Role / Credits" },
 ];
 
 interface BlockEditorProps {
@@ -79,6 +80,12 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
         break;
       case "gif":
         newBlock.src = "";
+        break;
+      case "role":
+        newBlock.roles = [
+          { label: "Client", value: "" },
+          { label: "Production", value: "" },
+        ];
         break;
     }
 

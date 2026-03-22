@@ -195,6 +195,30 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
               </FadeIn>
             );
 
+          case "role":
+            return (
+              <FadeIn key={index} className="px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto flex justify-end">
+                  <div className="w-full md:w-auto md:min-w-[300px]">
+                    {block.roles?.map((role, i) => (
+                      <div
+                        key={i}
+                        className="flex items-baseline gap-2 py-1.5 text-sm"
+                      >
+                        <span className="text-gray-400 font-medium">
+                          {role.label}
+                        </span>
+                        <span className="text-gray-400">|</span>
+                        <span className="text-black font-medium">
+                          {role.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            );
+
           default:
             return null;
         }

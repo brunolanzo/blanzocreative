@@ -23,6 +23,7 @@ const TYPE_LABELS: Record<string, string> = {
   "image-grid": "Image Grid",
   video: "Video",
   gif: "GIF",
+  role: "Role / Credits",
 };
 
 export default function SortableBlock({
@@ -138,9 +139,78 @@ function BlockContent({
         />
       );
 
+    case "role":
+      return <RoleEditor block={block} onUpdate={onUpdate} />;
+
     default:
       return <p className="text-gray-400 text-sm">Unknown block type</p>;
   }
+}
+
+function RoleEditor({
+  block,
+  onUpdate,
+}: {
+  block: ProjectBlock;
+  onUpdate: (updates: Partial<ProjectBlock>) => void;
+}) {
+  const roles = block.roles || [];
+
+  const updateRole = (index: number, field: "label" | "value", val: string) => {
+    const updated = roles.map((r, i) =>
+      i === index ? { ...r, [field]: val } : r
+    );
+    onUpdate({ roles: updated });
+  };
+
+  const addRole = () => {
+    onUpdate({ roles: [...roles, { label: "", value: "" }] });
+  };
+
+  const removeRole = (index: number) => {
+    onUpdate({ roles: roles.filter((_, i) => i !== index) });
+  };
+
+  return (
+    <div>
+      <p className="text-[10px] text-gray-400 mb-3 uppercase tracking-wider font-semibold">
+        Credits &mdash; aligned right on the page
+      </p>
+      <div className="space-y-2">
+        {roles.map((role, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <input
+              type="text"
+              value={role.label}
+              onChange={(e) => updateRole(i, "label", e.target.value)}
+              placeholder="Role (e.g. Client)"
+              className="w-1/3 border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none bg-transparent font-medium text-gray-500"
+            />
+            <span className="text-gray-300">|</span>
+            <input
+              type="text"
+              value={role.value}
+              onChange={(e) => updateRole(i, "value", e.target.value)}
+              placeholder="Name / Credit"
+              className="flex-1 border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none bg-transparent font-medium"
+            />
+            <button
+              onClick={() => removeRole(i)}
+              className="text-gray-300 hover:text-red-500 text-xs font-bold px-1"
+            >
+              x
+            </button>
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={addRole}
+        className="mt-2 text-xs font-bold text-gray-400 hover:text-black uppercase tracking-wider"
+      >
+        + Add Credit
+      </button>
+    </div>
+  );
 }
 
 function ImageFullEditor({

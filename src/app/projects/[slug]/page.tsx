@@ -34,8 +34,8 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <article className="pb-24">
-      {/* Project Header */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
+      {/* Hidden header — title is in the blocks, kept for SEO/accessibility */}
+      <section className="pt-16 md:pt-24 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <FadeIn>
             <Link
@@ -45,23 +45,14 @@ export default async function ProjectPage({ params }: Props) {
               &larr; All Projects
             </Link>
           </FadeIn>
-          <FadeIn delay={100}>
-            <div className="mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <div>
-                <p className="text-sm text-gray-400 font-semibold uppercase tracking-wider">
-                  {project.category} &mdash; {project.year}
-                </p>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight mt-2">
-                  {project.title}
-                </h1>
-              </div>
-            </div>
-          </FadeIn>
+          <h1 className="sr-only">{project.title}</h1>
         </div>
       </section>
 
       {/* Dynamic Content Blocks */}
-      <ProjectBlocks blocks={project.blocks} />
+      <div className="mt-8 md:mt-12">
+        <ProjectBlocks blocks={project.blocks} />
+      </div>
 
       {/* Next Project */}
       {nextProject && nextProject.slug !== slug && (

@@ -8,13 +8,15 @@ export interface ProjectBlock {
     | "image-full"
     | "image-grid"
     | "video"
-    | "gif";
+    | "gif"
+    | "role";
   content?: string;
   src?: string;
   images?: string[];
   columns?: 2 | 3 | 4;
   aspectRatio?: "horizontal" | "vertical" | "square";
   alt?: string;
+  roles?: { label: string; value: string }[];
 }
 
 export interface Project {
