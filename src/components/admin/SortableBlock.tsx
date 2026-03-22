@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { ProjectBlock } from "@/lib/types";
+import RichTextEditor from "./RichTextEditor";
 
 interface SortableBlockProps {
   block: ProjectBlock;
@@ -52,7 +53,6 @@ export default function SortableBlock({
     >
       {/* Block Header */}
       <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 border-b border-gray-100">
-        {/* Drag Handle */}
         <button
           {...attributes}
           {...listeners}
@@ -106,46 +106,15 @@ function BlockContent({
 }) {
   switch (block.type) {
     case "title":
-      return (
-        <input
-          type="text"
-          value={block.content || ""}
-          onChange={(e) => onUpdate({ content: e.target.value })}
-          placeholder="Project title..."
-          className="w-full text-2xl font-black uppercase tracking-tight outline-none bg-transparent"
-        />
-      );
-
     case "subtitle":
-      return (
-        <input
-          type="text"
-          value={block.content || ""}
-          onChange={(e) => onUpdate({ content: e.target.value })}
-          placeholder="Subtitle..."
-          className="w-full text-lg font-bold text-gray-600 outline-none bg-transparent"
-        />
-      );
-
     case "description":
-      return (
-        <textarea
-          value={block.content || ""}
-          onChange={(e) => onUpdate({ content: e.target.value })}
-          placeholder="Description text..."
-          rows={4}
-          className="w-full text-base text-gray-600 leading-relaxed outline-none bg-transparent resize-none"
-        />
-      );
-
     case "text":
       return (
-        <textarea
-          value={block.content || ""}
-          onChange={(e) => onUpdate({ content: e.target.value })}
-          placeholder="Body text..."
-          rows={3}
-          className="w-full text-sm text-gray-500 leading-relaxed outline-none bg-transparent resize-none"
+        <RichTextEditor
+          content={block.content || ""}
+          onChange={(html) => onUpdate({ content: html })}
+          placeholder={`Write ${block.type} here...`}
+          variant={block.type}
         />
       );
 
@@ -159,7 +128,14 @@ function BlockContent({
       return <VideoEditor block={block} onUpdate={onUpdate} />;
 
     case "gif":
-      return <MediaUploader block={block} onUpdate={onUpdate} accept="image/gif" label="GIF" />;
+      return (
+        <MediaUploader
+          block={block}
+          onUpdate={onUpdate}
+          accept="image/gif,image/*"
+          label="GIF"
+        />
+      );
 
     default:
       return <p className="text-gray-400 text-sm">Unknown block type</p>;
@@ -174,17 +150,26 @@ function ImageFullEditor({
   onUpdate: (updates: Partial<ProjectBlock>) => void;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setError("");
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    if (res.ok) {
-      const { url } = await res.json();
-      onUpdate({ src: url });
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      if (res.ok) {
+        const { url } = await res.json();
+        onUpdate({ src: url });
+      } else {
+        const data = await res.json();
+        setError(data.error || "Upload failed");
+      }
+    } catch {
+      setError("Network error");
     }
     setUploading(false);
   };
@@ -224,6 +209,7 @@ function ImageFullEditor({
           />
         </label>
       )}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
       <input
         type="text"
         value={block.alt || ""}
@@ -243,19 +229,25 @@ function ImageGridEditor({
   onUpdate: (updates: Partial<ProjectBlock>) => void;
 }) {
   const images = block.images || [];
+  const [error, setError] = useState("");
 
-  const uploadImage = async (
-    index: number,
-    file: File
-  ) => {
+  const uploadImage = async (index: number, file: File) => {
+    setError("");
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    if (res.ok) {
-      const { url } = await res.json();
-      const newImages = [...images];
-      newImages[index] = url;
-      onUpdate({ images: newImages });
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      if (res.ok) {
+        const { url } = await res.json();
+        const newImages = [...images];
+        newImages[index] = url;
+        onUpdate({ images: newImages });
+      } else {
+        const data = await res.json();
+        setError(data.error || "Upload failed");
+      }
+    } catch {
+      setError("Network error");
     }
   };
 
@@ -282,7 +274,10 @@ function ImageGridEditor({
         ))}
       </div>
 
-      <div className={`grid gap-2 grid-cols-${block.columns || 2}`} style={{ gridTemplateColumns: `repeat(${block.columns || 2}, 1fr)` }}>
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${block.columns || 2}, 1fr)` }}
+      >
         {images.map((img, i) => (
           <div key={i} className="relative group">
             {img ? (
@@ -329,6 +324,8 @@ function ImageGridEditor({
         ))}
       </div>
 
+      {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+
       <button
         onClick={addSlot}
         className="mt-2 text-xs font-bold text-gray-400 hover:text-black uppercase tracking-wider"
@@ -347,17 +344,45 @@ function VideoEditor({
   onUpdate: (updates: Partial<ProjectBlock>) => void;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [error, setError] = useState("");
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Check file size (Supabase free tier: 50MB)
+    const sizeMB = file.size / (1024 * 1024);
+    if (sizeMB > 50) {
+      setError(`File too large (${sizeMB.toFixed(1)}MB). Max: 50MB.`);
+      return;
+    }
+
     setUploading(true);
+    setError("");
+    setProgress(`Uploading ${sizeMB.toFixed(1)}MB...`);
+
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    if (res.ok) {
-      const { url } = await res.json();
-      onUpdate({ src: url });
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const { url } = await res.json();
+        onUpdate({ src: url });
+        setProgress("");
+      } else {
+        const data = await res.json();
+        setError(data.error || "Upload failed. Check file size and format.");
+        setProgress("");
+      }
+    } catch {
+      setError("Network error. Try a smaller file.");
+      setProgress("");
     }
     setUploading(false);
   };
@@ -391,30 +416,47 @@ function VideoEditor({
             loop
             playsInline
           />
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
             <label className="cursor-pointer text-white text-xs font-bold uppercase tracking-wider">
               Replace
               <input
                 type="file"
-                accept="video/mp4"
+                accept="video/mp4,video/*"
                 onChange={handleUpload}
                 className="hidden"
               />
             </label>
+            <button
+              onClick={() => onUpdate({ src: "" })}
+              className="text-white/70 text-xs font-bold uppercase tracking-wider hover:text-red-400"
+            >
+              Remove
+            </button>
           </div>
+          <p className="text-[10px] text-gray-400 mt-1 truncate">{block.src}</p>
         </div>
       ) : (
         <label className="block cursor-pointer border-2 border-dashed border-gray-200 py-8 text-center hover:border-black transition-colors">
-          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-            {uploading ? "Uploading..." : "Upload Video (.mp4)"}
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
+            {uploading ? progress : "Upload Video (.mp4)"}
+          </span>
+          <span className="text-[10px] text-gray-300 mt-1 block">
+            Max 50MB &middot; H.264 recommended
           </span>
           <input
             type="file"
-            accept="video/mp4"
+            accept="video/mp4,video/*"
             onChange={handleUpload}
             className="hidden"
+            disabled={uploading}
           />
         </label>
+      )}
+
+      {error && (
+        <p className="text-red-500 text-xs mt-2 bg-red-50 px-3 py-2">
+          {error}
+        </p>
       )}
     </div>
   );
@@ -432,17 +474,29 @@ function MediaUploader({
   label: string;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setError("");
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    if (res.ok) {
-      const { url } = await res.json();
-      onUpdate({ src: url });
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const { url } = await res.json();
+        onUpdate({ src: url });
+      } else {
+        const data = await res.json();
+        setError(data.error || "Upload failed");
+      }
+    } catch {
+      setError("Network error");
     }
     setUploading(false);
   };
@@ -482,6 +536,7 @@ function MediaUploader({
           />
         </label>
       )}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );
 }

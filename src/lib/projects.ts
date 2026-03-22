@@ -11,7 +11,7 @@ const fallbackProjects: Project[] = [
     published: true,
     blocks: [
       { id: "1", type: "title", content: "Sample Project" },
-      { id: "2", type: "description", content: "This is a sample project. Set up Supabase and create projects through the admin panel at /admin." },
+      { id: "2", type: "description", content: "Set up Supabase and create projects through the admin panel at /admin." },
     ],
   },
 ];
@@ -34,6 +34,7 @@ export async function getPublishedProjects(): Promise<Project[]> {
   }
 }
 
+// Gets project by slug - includes unpublished for preview
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const supabase = getServiceSupabase();
   if (!supabase) return fallbackProjects.find((p) => p.slug === slug) || null;
@@ -43,7 +44,6 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       .from("projects")
       .select("*")
       .eq("slug", slug)
-      .eq("published", true)
       .single();
 
     if (error || !data) {

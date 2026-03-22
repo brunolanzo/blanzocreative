@@ -14,9 +14,16 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
             return (
               <FadeIn key={index} className="px-6 md:px-10">
                 <div className="max-w-[1400px] mx-auto">
-                  <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight">
-                    {block.content}
-                  </h2>
+                  {isHTML(block.content) ? (
+                    <div
+                      className="rich-text rich-text-title"
+                      dangerouslySetInnerHTML={{ __html: block.content || "" }}
+                    />
+                  ) : (
+                    <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight">
+                      {block.content}
+                    </h2>
+                  )}
                 </div>
               </FadeIn>
             );
@@ -25,9 +32,16 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
             return (
               <FadeIn key={index} className="px-6 md:px-10">
                 <div className="max-w-[1400px] mx-auto">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-600 uppercase tracking-tight">
-                    {block.content}
-                  </h3>
+                  {isHTML(block.content) ? (
+                    <div
+                      className="rich-text rich-text-subtitle"
+                      dangerouslySetInnerHTML={{ __html: block.content || "" }}
+                    />
+                  ) : (
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-600 uppercase tracking-tight">
+                      {block.content}
+                    </h3>
+                  )}
                 </div>
               </FadeIn>
             );
@@ -36,9 +50,16 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
             return (
               <FadeIn key={index} className="px-6 md:px-10">
                 <div className="max-w-[900px] mx-auto">
-                  <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                    {block.content}
-                  </p>
+                  {isHTML(block.content) ? (
+                    <div
+                      className="rich-text rich-text-description"
+                      dangerouslySetInnerHTML={{ __html: block.content || "" }}
+                    />
+                  ) : (
+                    <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                      {block.content}
+                    </p>
+                  )}
                 </div>
               </FadeIn>
             );
@@ -47,9 +68,16 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
             return (
               <FadeIn key={index} className="px-6 md:px-10">
                 <div className="max-w-[900px] mx-auto">
-                  <p className="text-base text-gray-500 leading-relaxed">
-                    {block.content}
-                  </p>
+                  {isHTML(block.content) ? (
+                    <div
+                      className="rich-text rich-text-body"
+                      dangerouslySetInnerHTML={{ __html: block.content || "" }}
+                    />
+                  ) : (
+                    <p className="text-base text-gray-500 leading-relaxed">
+                      {block.content}
+                    </p>
+                  )}
                 </div>
               </FadeIn>
             );
@@ -173,4 +201,9 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
       })}
     </div>
   );
+}
+
+function isHTML(str?: string): boolean {
+  if (!str) return false;
+  return /<[a-z][\s\S]*>/i.test(str);
 }
