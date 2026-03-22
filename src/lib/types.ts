@@ -9,7 +9,8 @@ export interface ProjectBlock {
     | "image-grid"
     | "video"
     | "gif"
-    | "role";
+    | "role"
+    | "testimonial";
   content?: string;
   src?: string;
   images?: string[];
@@ -17,6 +18,14 @@ export interface ProjectBlock {
   aspectRatio?: "horizontal" | "vertical" | "square";
   alt?: string;
   roles?: { label: string; value: string }[];
+  testimonial?: {
+    quote: string;
+    name: string;
+    title: string;
+    company: string;
+    avatar: string;
+    decorImage: string;
+  };
 }
 
 export interface Project {

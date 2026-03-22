@@ -24,6 +24,7 @@ const TYPE_LABELS: Record<string, string> = {
   video: "Video",
   gif: "GIF",
   role: "Role / Credits",
+  testimonial: "Testimonial",
 };
 
 export default function SortableBlock({
@@ -141,6 +142,9 @@ function BlockContent({
 
     case "role":
       return <RoleEditor block={block} onUpdate={onUpdate} />;
+
+    case "testimonial":
+      return <TestimonialEditor block={block} onUpdate={onUpdate} />;
 
     default:
       return <p className="text-gray-400 text-sm">Unknown block type</p>;
@@ -560,6 +564,179 @@ function MediaUploader({
         </label>
       )}
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
+  );
+}
+
+function TestimonialEditor({
+  block,
+  onUpdate,
+}: {
+  block: ProjectBlock;
+  onUpdate: (updates: Partial<ProjectBlock>) => void;
+}) {
+  const t = block.testimonial || {
+    quote: "",
+    name: "",
+    title: "",
+    company: "",
+    avatar: "",
+    decorImage: "",
+  };
+
+  const update = (field: string, value: string) => {
+    onUpdate({ testimonial: { ...t, [field]: value } });
+  };
+
+  const handleImageUpload = async (
+    field: "avatar" | "decorImage",
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const url = await uploadFile(file);
+      update(field, url);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        {/* Decor image (left side) */}
+        <div>
+          <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Decoration Image (left)
+          </label>
+          {t.decorImage ? (
+            <div className="relative group aspect-[4/3] bg-gray-100 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={t.decorImage}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <label className="cursor-pointer text-white text-xs font-bold uppercase tracking-wider">
+                  Replace
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload("decorImage", e)}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+          ) : (
+            <label className="block cursor-pointer border-2 border-dashed border-gray-200 py-6 text-center hover:border-black transition-colors aspect-[4/3] flex items-center justify-center">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                Upload Image
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload("decorImage", e)}
+                className="hidden"
+              />
+            </label>
+          )}
+        </div>
+
+        {/* Avatar */}
+        <div>
+          <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Avatar Photo
+          </label>
+          {t.avatar ? (
+            <div className="relative group w-16 h-16 rounded-full overflow-hidden bg-gray-100">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={t.avatar}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <label className="cursor-pointer text-white text-[8px] font-bold uppercase">
+                  Edit
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload("avatar", e)}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+          ) : (
+            <label className="w-16 h-16 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center cursor-pointer hover:border-black transition-colors">
+              <span className="text-[8px] font-bold text-gray-400 uppercase">
+                Photo
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload("avatar", e)}
+                className="hidden"
+              />
+            </label>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+          Quote
+        </label>
+        <textarea
+          value={t.quote}
+          onChange={(e) => update("quote", e.target.value)}
+          placeholder="Client testimonial quote..."
+          rows={3}
+          className="w-full border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none resize-none italic"
+        />
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            value={t.name}
+            onChange={(e) => update("name", e.target.value)}
+            placeholder="John Doe"
+            className="w-full border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none"
+          />
+        </div>
+        <div>
+          <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Title
+          </label>
+          <input
+            type="text"
+            value={t.title}
+            onChange={(e) => update("title", e.target.value)}
+            placeholder="Creative Director"
+            className="w-full border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none"
+          />
+        </div>
+        <div>
+          <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Company
+          </label>
+          <input
+            type="text"
+            value={t.company}
+            onChange={(e) => update("company", e.target.value)}
+            placeholder="Company Name"
+            className="w-full border border-gray-200 px-3 py-2 text-sm focus:border-black outline-none"
+          />
+        </div>
+      </div>
     </div>
   );
 }
