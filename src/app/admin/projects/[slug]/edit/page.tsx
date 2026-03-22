@@ -6,6 +6,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import BlockEditor from "@/components/admin/BlockEditor";
 import type { Project, ProjectBlock } from "@/lib/types";
+import { uploadFile } from "@/lib/upload";
 
 export default function EditProjectPage() {
   const params = useParams();
@@ -225,18 +226,11 @@ function ThumbnailUpload({
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (res.ok) {
-      const { url } = await res.json();
+    try {
+      const url = await uploadFile(file);
       onChange(url);
+    } catch (err) {
+      console.error("Thumbnail upload failed:", err);
     }
     setUploading(false);
   };

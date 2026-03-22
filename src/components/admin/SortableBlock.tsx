@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { ProjectBlock } from "@/lib/types";
+import { uploadFile } from "@/lib/upload";
 import RichTextEditor from "./RichTextEditor";
 
 interface SortableBlockProps {
@@ -150,6 +151,7 @@ function ImageFullEditor({
   onUpdate: (updates: Partial<ProjectBlock>) => void;
 }) {
   const [uploading, setUploading] = useState(false);
+  const [status, setStatus] = useState("");
   const [error, setError] = useState("");
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,21 +159,14 @@ function ImageFullEditor({
     if (!file) return;
     setUploading(true);
     setError("");
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const { url } = await res.json();
-        onUpdate({ src: url });
-      } else {
-        const data = await res.json();
-        setError(data.error || "Upload failed");
-      }
-    } catch {
-      setError("Network error");
+      const url = await uploadFile(file, setStatus);
+      onUpdate({ src: url });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
     }
     setUploading(false);
+    setStatus("");
   };
 
   return (
@@ -199,7 +194,7 @@ function ImageFullEditor({
       ) : (
         <label className="block cursor-pointer border-2 border-dashed border-gray-200 py-8 text-center hover:border-black transition-colors">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-            {uploading ? "Uploading..." : "Upload Full Width Image"}
+            {uploading ? status || "Uploading..." : "Upload Full Width Image"}
           </span>
           <input
             type="file"
@@ -233,21 +228,13 @@ function ImageGridEditor({
 
   const uploadImage = async (index: number, file: File) => {
     setError("");
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const { url } = await res.json();
-        const newImages = [...images];
-        newImages[index] = url;
-        onUpdate({ images: newImages });
-      } else {
-        const data = await res.json();
-        setError(data.error || "Upload failed");
-      }
-    } catch {
-      setError("Network error");
+      const url = await uploadFile(file);
+      const newImages = [...images];
+      newImages[index] = url;
+      onUpdate({ images: newImages });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
     }
   };
 
@@ -351,39 +338,16 @@ function VideoEditor({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check file size (Supabase free tier: 50MB)
-    const sizeMB = file.size / (1024 * 1024);
-    if (sizeMB > 50) {
-      setError(`File too large (${sizeMB.toFixed(1)}MB). Max: 50MB.`);
-      return;
-    }
-
     setUploading(true);
     setError("");
-    setProgress(`Uploading ${sizeMB.toFixed(1)}MB...`);
-
-    const formData = new FormData();
-    formData.append("file", file);
 
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.ok) {
-        const { url } = await res.json();
-        onUpdate({ src: url });
-        setProgress("");
-      } else {
-        const data = await res.json();
-        setError(data.error || "Upload failed. Check file size and format.");
-        setProgress("");
-      }
-    } catch {
-      setError("Network error. Try a smaller file.");
-      setProgress("");
+      const url = await uploadFile(file, setProgress);
+      onUpdate({ src: url });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
     }
+    setProgress("");
     setUploading(false);
   };
 
@@ -481,22 +445,11 @@ function MediaUploader({
     if (!file) return;
     setUploading(true);
     setError("");
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (res.ok) {
-        const { url } = await res.json();
-        onUpdate({ src: url });
-      } else {
-        const data = await res.json();
-        setError(data.error || "Upload failed");
-      }
-    } catch {
-      setError("Network error");
+      const url = await uploadFile(file);
+      onUpdate({ src: url });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
     }
     setUploading(false);
   };

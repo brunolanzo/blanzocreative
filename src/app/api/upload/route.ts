@@ -2,32 +2,52 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getServiceSupabase } from "@/lib/supabase";
 
+// Returns a signed upload URL so the browser can upload directly to Supabase
+// This bypasses Vercel's 4.5MB body limit
 export async function POST(req: NextRequest) {
   const session = await getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const supabase = getServiceSupabase();
-  if (!supabase) {
-    return NextResponse.json({ error: "Storage not configured" }, { status: 503 });
+  if (!supabase)
+    return NextResponse.json(
+      { error: "Storage not configured" },
+      { status: 503 }
+    );
+
+  const { fileName, contentType } = await req.json();
+
+  if (!fileName) {
+    return NextResponse.json(
+      { error: "fileName is required" },
+      { status: 400 }
+    );
   }
 
-  const formData = await req.formData();
-  const file = formData.get("file") as File;
-  if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
-
   const timestamp = Date.now();
-  const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+  const safeName = fileName.replace(/[^a-zA-Z0-9.-]/g, "_");
   const filePath = `projects/${timestamp}-${safeName}`;
 
-  const { error } = await supabase.storage
+  // Create a signed URL for direct upload (valid for 2 minutes)
+  const { data, error } = await supabase.storage
     .from("media")
-    .upload(filePath, file, {
-      contentType: file.type,
-      upsert: false,
-    });
+    .createSignedUploadUrl(filePath);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
-  const { data: urlData } = supabase.storage.from("media").getPublicUrl(filePath);
-  return NextResponse.json({ url: urlData.publicUrl });
+  // Also return the public URL for after upload completes
+  const { data: urlData } = supabase.storage
+    .from("media")
+    .getPublicUrl(filePath);
+
+  return NextResponse.json({
+    signedUrl: data.signedUrl,
+    token: data.token,
+    path: filePath,
+    publicUrl: urlData.publicUrl,
+    contentType: contentType || "application/octet-stream",
+  });
 }
