@@ -32,7 +32,7 @@ export default function VideoPlayer({
   };
 
   return (
-    <div className={`video-container relative group ${aspectClasses[aspectRatio]} ${className}`}>
+    <div className={`video-container relative group ${aspectClasses[aspectRatio]} bg-black ${className}`}>
       <video
         ref={videoRef}
         src={src}
@@ -41,7 +41,7 @@ export default function VideoPlayer({
         loop
         muted
         playsInline
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
       />
       <button
         onClick={toggleSound}
