@@ -10,7 +10,8 @@ export interface ProjectBlock {
     | "video"
     | "gif"
     | "role"
-    | "testimonial";
+    | "testimonial"
+    | "caption";
   content?: string;
   src?: string;
   images?: string[];

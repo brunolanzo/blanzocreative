@@ -201,6 +201,17 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
               </FadeIn>
             );
 
+          case "caption":
+            return (
+              <FadeIn key={index} className="px-6 md:px-10 -mt-8 md:-mt-12">
+                <div className="max-w-[1400px] mx-auto">
+                  <p className="text-xs text-gray-400 italic tracking-wide">
+                    {block.content}
+                  </p>
+                </div>
+              </FadeIn>
+            );
+
           case "testimonial":
             return (
               <FadeIn key={index}>

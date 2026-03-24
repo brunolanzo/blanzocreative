@@ -29,6 +29,7 @@ const BLOCK_TYPES: { type: ProjectBlock["type"]; label: string }[] = [
   { type: "video", label: "Video" },
   { type: "gif", label: "GIF" },
   { type: "role", label: "Role / Credits" },
+  { type: "caption", label: "Caption" },
   { type: "testimonial", label: "Testimonial" },
 ];
 

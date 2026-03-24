@@ -23,6 +23,7 @@ const TYPE_LABELS: Record<string, string> = {
   "image-grid": "Image Grid",
   video: "Video",
   gif: "GIF",
+  caption: "Caption",
   role: "Role / Credits",
   testimonial: "Testimonial",
 };
@@ -137,6 +138,17 @@ function BlockContent({
           onUpdate={onUpdate}
           accept="image/gif,image/*"
           label="GIF"
+        />
+      );
+
+    case "caption":
+      return (
+        <input
+          type="text"
+          value={block.content || ""}
+          onChange={(e) => onUpdate({ content: e.target.value })}
+          placeholder="Caption text..."
+          className="w-full text-xs text-gray-400 italic outline-none bg-transparent"
         />
       );
 
