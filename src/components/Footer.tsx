@@ -15,7 +15,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-              A creative studio crafting visual experiences through motion,
+              A creative shop crafting visual experiences through motion,
               design, and storytelling. We bring brands to life with bold,
               purposeful creativity.
             </p>
@@ -29,7 +29,7 @@ export default function Footer() {
             <div className="flex flex-col gap-3">
               <Link href="/" className="text-sm text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/projects" className="text-sm text-gray-300 hover:text-white transition-colors">Projects</Link>
-              <Link href="/studio" className="text-sm text-gray-300 hover:text-white transition-colors">Studio</Link>
+              <Link href="/shop" className="text-sm text-gray-300 hover:text-white transition-colors">Shop</Link>
               <Link href="/info" className="text-sm text-gray-300 hover:text-white transition-colors">Info</Link>
               <Link href="/contact" className="text-sm text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>

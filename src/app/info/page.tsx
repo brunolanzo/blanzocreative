@@ -2,7 +2,7 @@ import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
   title: "Info — Blanzo Creative",
-  description: "Information about Blanzo Creative studio, clients, and recognition.",
+  description: "Information about Blanzo Creative Shop, clients, and recognition.",
 };
 
 export default function InfoPage() {
@@ -19,7 +19,7 @@ export default function InfoPage() {
         <div className="mt-16 max-w-3xl">
           <FadeIn delay={100}>
             <p className="text-2xl md:text-3xl font-bold leading-tight">
-              Blanzo Creative is an independent creative studio specializing in
+              Blanzo Creative is an independent creative shop specializing in
               branding, motion design, and visual storytelling.
             </p>
           </FadeIn>
@@ -28,7 +28,7 @@ export default function InfoPage() {
               Founded with the belief that bold visuals can transform how brands
               connect with their audiences, we work at the intersection of design
               and motion to deliver experiences that are both strategic and
-              visually striking. Our studio operates with a focused team of
+              visually striking. Our shop operates with a focused team of
               creatives who bring diverse perspectives to every project.
             </p>
           </FadeIn>

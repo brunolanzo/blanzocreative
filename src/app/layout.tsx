@@ -11,9 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Blanzo Creative — Creative Studio",
+  title: "Blanzo Creative Shop",
   description:
-    "A creative studio crafting visual experiences through motion, design, and storytelling.",
+    "A creative shop crafting visual experiences through motion, design, and storytelling. 360-degree creative services.",
 };
 
 export default function RootLayout({

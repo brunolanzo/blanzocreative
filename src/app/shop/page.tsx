@@ -1,18 +1,18 @@
 import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
-  title: "Studio — Blanzo Creative",
-  description: "Learn about our creative studio, our process, and what drives us.",
+  title: "Shop — Blanzo Creative",
+  description: "Explore our creative shop — 360-degree creative services, from branding to motion design.",
 };
 
-export default function StudioPage() {
+export default function ShopPage() {
   return (
     <section className="py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <FadeIn>
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight">
-            Studio
+            Shop
           </h1>
         </FadeIn>
 
@@ -20,7 +20,7 @@ export default function StudioPage() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <FadeIn delay={100}>
             <p className="text-2xl md:text-3xl font-bold leading-tight">
-              We are a creative studio focused on building meaningful visual
+              We are a creative shop focused on building meaningful visual
               experiences for brands that dare to stand out.
             </p>
           </FadeIn>
@@ -42,11 +42,11 @@ export default function StudioPage() {
           </FadeIn>
         </div>
 
-        {/* Studio Image Placeholder */}
+        {/* Shop Image Placeholder */}
         <FadeIn delay={100}>
           <div className="mt-20 aspect-[21/9] bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100 flex items-center justify-center">
             <span className="text-gray-300 text-sm uppercase tracking-widest">
-              Studio Image
+              Shop Image
             </span>
           </div>
         </FadeIn>

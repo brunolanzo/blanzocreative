@@ -27,7 +27,7 @@ export default async function Home() {
           </FadeIn>
           <FadeIn delay={200}>
             <p className="mt-8 text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              A creative studio crafting visual experiences through motion,
+              A creative shop crafting visual experiences through motion,
               design, and storytelling. We bring brands to life with purposeful
               creativity.
             </p>
@@ -81,7 +81,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Studio CTA */}
+      {/* Shop CTA */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto text-center">
           <FadeIn>

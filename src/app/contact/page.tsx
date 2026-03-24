@@ -65,7 +65,7 @@ export default function ContactPage() {
                     Location
                   </h3>
                   <p className="text-base font-semibold">
-                    Remote-first studio
+                    Remote-first shop
                   </p>
                 </div>
               </div>
