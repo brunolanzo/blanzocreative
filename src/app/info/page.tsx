@@ -30,11 +30,11 @@ const clients = [
 const timeline = [
   { period: "2007", role: "Started at Editora Abril, one of Brazil's largest media houses" },
   { period: "2009 — 2017", role: "Motion Designer at Rede Globo — 8 years crafting promos across drama, sports, news, and reality" },
-  { period: "2016", role: "Gold Winner, PromaxBDA Latin America Awards" },
   { period: "2017 — 2019", role: "Senior Motion Designer & Art Director at Uber — brand, performance, and CRM campaigns" },
   { period: "2019 — 2021", role: "Senior Motion Designer at XP Inc. — high-impact motion for fintech marketing" },
   { period: "2021 — 2024", role: "Senior Creative to Streaming Art Manager LATAM at Warner Bros. Discovery — pivotal role in the HBO Max launch" },
   { period: "2024", role: "Founded Blanzo Creative — one-person creative shop, partnering with brands and agencies worldwide" },
+  { period: "2025 — Now", role: "Video Creative Manager at Keeta — leading internal and external audiovisual production and execution" },
 ];
 
 export default function InfoPage() {
@@ -96,11 +96,18 @@ export default function InfoPage() {
                   final render. That range is what makes Blanzo Creative different.
                 </p>
                 <p>
+                  Today, I also explore the intersection of creativity and artificial
+                  intelligence — using AI-powered tools and workflows to push the
+                  boundaries of what&apos;s possible in motion design, accelerate
+                  production, and unlock new forms of visual storytelling that didn&apos;t
+                  exist a few years ago.
+                </p>
+                <p>
                   In 2024, I took everything I&apos;d learned across media, tech, and
                   finance and built Blanzo Creative — a one-person creative shop where
-                  brands get senior-level craft without the agency overhead. Whether
-                  you need a full 360 campaign or a single piece of motion that stops
-                  the scroll, this is the place.
+                  brands get senior-level craft without the agency overhead. Currently,
+                  I also serve as Video Creative Manager at Keeta, leading audiovisual
+                  production and execution both internally and with external partners.
                 </p>
               </div>
             </div>
@@ -117,51 +124,6 @@ export default function InfoPage() {
                 I make them matter.
               </span>&rdquo;
             </blockquote>
-          </div>
-        </FadeIn>
-
-        {/* Timeline */}
-        <div className="mt-24">
-          <FadeIn>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12">
-              Journey
-            </h2>
-          </FadeIn>
-          <div className="space-y-0">
-            {timeline.map((item, index) => (
-              <FadeIn key={index} delay={index * 50}>
-                <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 py-5 border-b border-gray-100">
-                  <span className="text-sm font-bold text-gray-300 uppercase tracking-wider md:w-48 md:flex-shrink-0">
-                    {item.period}
-                  </span>
-                  <span className="text-base font-medium text-gray-700">
-                    {item.role}
-                  </span>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-
-        {/* Award */}
-        <FadeIn delay={100}>
-          <div className="mt-24 p-8 md:p-12 bg-black text-white">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
-                  Recognition
-                </p>
-                <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight">
-                  Gold Winner
-                </h3>
-                <p className="text-gray-400 mt-1">
-                  PromaxBDA Latin America Awards 2016 — Best Visual
-                </p>
-              </div>
-              <div className="text-6xl md:text-8xl font-black text-gray-800 leading-none">
-                AU
-              </div>
-            </div>
           </div>
         </FadeIn>
 
@@ -196,38 +158,23 @@ export default function InfoPage() {
           </FadeIn>
         </div>
 
-        {/* Education */}
+        {/* Timeline */}
         <div className="mt-24">
           <FadeIn>
             <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12">
-              Education
+              Journey
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                school: "Fundação Dom Cabral",
-                degree: "Postgraduate in Business Management",
-                year: "2015 — 2016",
-              },
-              {
-                school: "Panamericana Escola de Arte e Design",
-                degree: "Graphic Design",
-                year: "2010 — 2012",
-              },
-              {
-                school: "Universidade Anhembi Morumbi",
-                degree: "Social Communication — Radio & TV",
-                year: "2006 — 2009",
-              },
-            ].map((edu, index) => (
-              <FadeIn key={index} delay={index * 100}>
-                <div className="border-t-2 border-black pt-6">
-                  <h3 className="text-sm font-bold uppercase tracking-tight">
-                    {edu.school}
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-2">{edu.degree}</p>
-                  <p className="text-xs text-gray-400 mt-1">{edu.year}</p>
+          <div className="space-y-0">
+            {timeline.map((item, index) => (
+              <FadeIn key={index} delay={index * 50}>
+                <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 py-5 border-b border-gray-100">
+                  <span className="text-sm font-bold text-gray-300 uppercase tracking-wider md:w-48 md:flex-shrink-0">
+                    {item.period}
+                  </span>
+                  <span className="text-base font-medium text-gray-700">
+                    {item.role}
+                  </span>
                 </div>
               </FadeIn>
             ))}
