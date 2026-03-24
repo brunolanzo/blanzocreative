@@ -81,6 +81,50 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Clients */}
+      <section className="py-20 md:py-28 px-6 md:px-10 border-t border-gray-100">
+        <div className="max-w-[1400px] mx-auto">
+          <FadeIn>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12 text-center">
+              Trusted by
+            </h2>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-4">
+              {[
+                "Globo",
+                "Uber",
+                "Warner",
+                "HBO",
+                "XP",
+                "Keeta",
+                "Unilever",
+                "JW",
+                "OKX",
+                "World",
+                "MediaMonks",
+                "Livemode",
+                "Gupy",
+                "Nomad",
+                "Carrot",
+                "Live Agency",
+                "Abril",
+                "MIXTV",
+              ].map((name) => (
+                <div
+                  key={name}
+                  className="aspect-[3/2] border border-gray-100 flex items-center justify-center p-3 hover:border-gray-300 transition-colors group"
+                >
+                  <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider text-center group-hover:text-gray-500 transition-colors">
+                    {name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Shop CTA */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto text-center">
