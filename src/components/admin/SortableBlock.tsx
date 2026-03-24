@@ -316,23 +316,50 @@ function ImageGridEditor({
   const removeSlot = (index: number) =>
     onUpdate({ images: images.filter((_, i) => i !== index) });
 
+  const aspectClass: Record<string, string> = {
+    "16:9": "aspect-video",
+    "9:16": "aspect-[9/16]",
+    "1:1": "aspect-square",
+    "4:5": "aspect-[4/5]",
+  };
+
+  const currentAspect = block.gridAspectRatio || "1:1";
+
   return (
     <div>
-      <div className="flex gap-2 mb-3">
-        <label className="text-xs text-gray-400 font-semibold">Columns:</label>
-        {([2, 3, 4] as const).map((n) => (
-          <button
-            key={n}
-            onClick={() => onUpdate({ columns: n })}
-            className={`text-xs font-bold px-2 py-1 ${
-              block.columns === n
-                ? "bg-black text-white"
-                : "bg-gray-100 text-gray-400 hover:bg-gray-200"
-            }`}
-          >
-            {n}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-x-6 gap-y-2 mb-3">
+        <div className="flex gap-2 items-center">
+          <label className="text-xs text-gray-400 font-semibold">Columns:</label>
+          {([2, 3, 4] as const).map((n) => (
+            <button
+              key={n}
+              onClick={() => onUpdate({ columns: n })}
+              className={`text-xs font-bold px-2 py-1 ${
+                block.columns === n
+                  ? "bg-black text-white"
+                  : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-2 items-center">
+          <label className="text-xs text-gray-400 font-semibold">Ratio:</label>
+          {(["16:9", "9:16", "1:1", "4:5"] as const).map((r) => (
+            <button
+              key={r}
+              onClick={() => onUpdate({ gridAspectRatio: r })}
+              className={`text-xs font-bold px-2 py-1 ${
+                currentAspect === r
+                  ? "bg-black text-white"
+                  : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+              }`}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div
@@ -342,7 +369,7 @@ function ImageGridEditor({
         {images.map((img, i) => (
           <div key={i} className="relative group">
             {img ? (
-              <div className="aspect-square bg-gray-100 relative overflow-hidden">
+              <div className={`${aspectClass[currentAspect]} bg-gray-100 relative overflow-hidden`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
@@ -357,7 +384,7 @@ function ImageGridEditor({
                 </button>
               </div>
             ) : (
-              <label className="aspect-square border-2 border-dashed border-gray-200 flex items-center justify-center cursor-pointer hover:border-black transition-colors relative">
+              <label className={`${aspectClass[currentAspect]} border-2 border-dashed border-gray-200 flex items-center justify-center cursor-pointer hover:border-black transition-colors relative`}>
                 <span className="text-[10px] text-gray-400 font-bold uppercase">
                   Upload
                 </span>

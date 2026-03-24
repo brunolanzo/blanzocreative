@@ -74,6 +74,7 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
       case "image-grid":
         newBlock.images = ["", ""];
         newBlock.columns = 2;
+        newBlock.gridAspectRatio = "1:1";
         break;
       case "video":
         newBlock.src = "";

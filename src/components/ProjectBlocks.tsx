@@ -87,13 +87,16 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
               <FadeIn key={index}>
                 <div className="w-full aspect-[16/9] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                   {block.src ? (
-                    <Image
-                      src={block.src}
-                      alt={block.alt || ""}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                    />
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse" />
+                      <Image
+                        src={block.src}
+                        alt={block.alt || ""}
+                        fill
+                        className="object-cover relative z-10"
+                        sizes="100vw"
+                      />
+                    </>
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-gray-300 text-sm uppercase tracking-widest">
@@ -105,7 +108,15 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
               </FadeIn>
             );
 
-          case "image-grid":
+          case "image-grid": {
+            const gridAspectClass: Record<string, string> = {
+              "16:9": "aspect-video",
+              "9:16": "aspect-[9/16]",
+              "1:1": "aspect-square",
+              "4:5": "aspect-[4/5]",
+            };
+            const gridAspect = gridAspectClass[block.gridAspectRatio || "1:1"];
+
             return (
               <FadeIn key={index} className="px-6 md:px-10">
                 <div className="max-w-[1400px] mx-auto">
@@ -121,16 +132,10 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
                     {block.images?.map((img, imgIndex) => (
                       <div
                         key={imgIndex}
-                        className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden"
+                        className={`${gridAspect} bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden`}
                       >
                         {img ? (
-                          <Image
-                            src={img}
-                            alt={`Grid image ${imgIndex + 1}`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
+                          <GridImage src={img} index={imgIndex} />
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center">
                             <span className="text-gray-300 text-xs uppercase tracking-widest">
@@ -144,6 +149,7 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
                 </div>
               </FadeIn>
             );
+          }
 
           case "video":
             return (
@@ -292,6 +298,22 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
         }
       })}
     </div>
+  );
+}
+
+function GridImage({ src, index }: { src: string; index: number }) {
+  return (
+    <>
+      {/* Loading shimmer */}
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse" />
+      <Image
+        src={src}
+        alt={`Grid image ${index + 1}`}
+        fill
+        className="object-cover relative z-10"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    </>
   );
 }
 

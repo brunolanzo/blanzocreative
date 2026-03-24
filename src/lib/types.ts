@@ -16,6 +16,7 @@ export interface ProjectBlock {
   images?: string[];
   columns?: 2 | 3 | 4;
   aspectRatio?: "horizontal" | "vertical" | "square";
+  gridAspectRatio?: "16:9" | "9:16" | "1:1" | "4:5";
   alt?: string;
   roles?: { label: string; value: string }[];
   testimonial?: {
