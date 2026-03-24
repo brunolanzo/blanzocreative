@@ -2,121 +2,232 @@ import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
   title: "Info — Blanzo Creative",
-  description: "Information about Blanzo Creative Shop, clients, and recognition.",
+  description:
+    "Meet Bruno Lanzo — motion design specialist with 15+ years crafting visuals for Globo, Uber, Warner Bros. Discovery, and more.",
 };
+
+const clients = [
+  { name: "Rede Globo", short: "Globo" },
+  { name: "Uber" },
+  { name: "Warner Bros. Discovery", short: "Warner" },
+  { name: "HBO Max", short: "HBO" },
+  { name: "XP Inc.", short: "XP" },
+  { name: "Keeta" },
+  { name: "Unilever" },
+  { name: "Johnnie Walker", short: "JW" },
+  { name: "OKX" },
+  { name: "World" },
+  { name: "MediaMonks" },
+  { name: "Livemode" },
+  { name: "Gupy" },
+  { name: "Nomad" },
+  { name: "Carrot Collective", short: "Carrot" },
+  { name: "Live Agency" },
+  { name: "Editora Abril", short: "Abril" },
+  { name: "MIXTV" },
+];
+
+const timeline = [
+  { period: "2007", role: "Started at Editora Abril, one of Brazil's largest media houses" },
+  { period: "2009 — 2017", role: "Motion Designer at Rede Globo — 8 years crafting promos across drama, sports, news, and reality" },
+  { period: "2016", role: "Gold Winner, PromaxBDA Latin America Awards" },
+  { period: "2017 — 2019", role: "Senior Motion Designer & Art Director at Uber — brand, performance, and CRM campaigns" },
+  { period: "2019 — 2021", role: "Senior Motion Designer at XP Inc. — high-impact motion for fintech marketing" },
+  { period: "2021 — 2024", role: "Senior Creative to Streaming Art Manager LATAM at Warner Bros. Discovery — pivotal role in the HBO Max launch" },
+  { period: "2024", role: "Founded Blanzo Creative — one-person creative shop, partnering with brands and agencies worldwide" },
+];
 
 export default function InfoPage() {
   return (
     <section className="py-16 md:py-24 px-6 md:px-10">
       <div className="max-w-[1400px] mx-auto">
+        {/* Header */}
         <FadeIn>
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight">
             Info
           </h1>
         </FadeIn>
 
-        {/* About */}
-        <div className="mt-16 max-w-3xl">
+        {/* Hero — Photo + Intro */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+          {/* Photo */}
           <FadeIn delay={100}>
-            <p className="text-2xl md:text-3xl font-bold leading-tight">
-              Blanzo Creative is an independent creative shop specializing in
-              branding, motion design, and visual storytelling.
-            </p>
+            <div className="aspect-[3/4] bg-gradient-to-br from-gray-200 via-gray-300 to-gray-100 flex items-center justify-center relative overflow-hidden">
+              <span className="text-gray-400 text-sm uppercase tracking-widest">
+                Photo
+              </span>
+            </div>
           </FadeIn>
-          <FadeIn delay={200}>
-            <p className="mt-8 text-gray-500 leading-relaxed">
-              Founded with the belief that bold visuals can transform how brands
-              connect with their audiences, we work at the intersection of design
-              and motion to deliver experiences that are both strategic and
-              visually striking. Our shop operates with a focused team of
-              creatives who bring diverse perspectives to every project.
-            </p>
-          </FadeIn>
-        </div>
 
-        {/* Clients */}
-        <div className="mt-24">
-          <FadeIn>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12">
-              Selected Clients
-            </h2>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                "Client One",
-                "Client Two",
-                "Client Three",
-                "Client Four",
-                "Client Five",
-                "Client Six",
-                "Client Seven",
-                "Client Eight",
-              ].map((client) => (
-                <div
-                  key={client}
-                  className="py-6 px-4 border border-gray-200 flex items-center justify-center"
-                >
-                  <span className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
-                    {client}
-                  </span>
-                </div>
-              ))}
+          {/* Personal Intro */}
+          <FadeIn delay={200}>
+            <div className="space-y-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+                  The person behind Blanzo
+                </p>
+                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight leading-tight">
+                  Bruno Lanzo
+                </h2>
+                <p className="text-gray-400 font-semibold mt-2">
+                  Motion Design Specialist &middot; Creative Leader &middot; Generalist
+                </p>
+              </div>
+
+              <p className="text-lg md:text-xl font-bold leading-snug">
+                The name says it all. <span className="bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent">Blanzo</span> is
+                Bruno + Lanzo — a name born from movement, just like everything I do.
+              </p>
+
+              <div className="space-y-5 text-gray-500 leading-relaxed">
+                <p>
+                  For over 15 years, I&apos;ve been putting things in motion. From my
+                  early days at Rede Globo — where I spent nearly a decade shaping
+                  the visual language of Brazil&apos;s biggest network — to leading
+                  creative teams at Uber, building motion systems for XP Inc., and
+                  playing a key role in the HBO Max launch across Latin America at
+                  Warner Bros. Discovery.
+                </p>
+                <p>
+                  I&apos;m recognized as a generalist in the best sense of the word:
+                  equally comfortable leading a creative team of 20 or sitting alone in
+                  After Effects at 2am pushing pixels until the animation feels right.
+                  I can concept, direct, design, animate, and deliver — from brief to
+                  final render. That range is what makes Blanzo Creative different.
+                </p>
+                <p>
+                  In 2024, I took everything I&apos;d learned across media, tech, and
+                  finance and built Blanzo Creative — a one-person creative shop where
+                  brands get senior-level craft without the agency overhead. Whether
+                  you need a full 360 campaign or a single piece of motion that stops
+                  the scroll, this is the place.
+                </p>
+              </div>
             </div>
           </FadeIn>
         </div>
 
-        {/* Awards / Recognition */}
+        {/* Quote */}
+        <FadeIn delay={100}>
+          <div className="mt-24 md:mt-32 py-16 md:py-20 border-t border-b border-gray-200 text-center max-w-4xl mx-auto">
+            <blockquote className="text-2xl md:text-4xl font-black uppercase tracking-tight leading-tight">
+              &ldquo;I don&apos;t just make things move.
+              <br />
+              <span className="bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
+                I make them matter.
+              </span>&rdquo;
+            </blockquote>
+          </div>
+        </FadeIn>
+
+        {/* Timeline */}
         <div className="mt-24">
           <FadeIn>
             <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12">
-              Recognition
+              Journey
             </h2>
           </FadeIn>
           <div className="space-y-0">
-            {[
-              { award: "Award Name", org: "Organization", year: "2024" },
-              { award: "Award Name", org: "Organization", year: "2024" },
-              { award: "Award Name", org: "Organization", year: "2023" },
-              { award: "Award Name", org: "Organization", year: "2023" },
-            ].map((item, index) => (
+            {timeline.map((item, index) => (
               <FadeIn key={index} delay={index * 50}>
-                <div className="flex justify-between items-center py-5 border-b border-gray-100">
-                  <div>
-                    <span className="font-bold text-sm uppercase tracking-tight">
-                      {item.award}
-                    </span>
-                    <span className="text-gray-400 text-sm ml-4">
-                      {item.org}
-                    </span>
-                  </div>
-                  <span className="text-xs text-gray-400">{item.year}</span>
+                <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 py-5 border-b border-gray-100">
+                  <span className="text-sm font-bold text-gray-300 uppercase tracking-wider md:w-48 md:flex-shrink-0">
+                    {item.period}
+                  </span>
+                  <span className="text-base font-medium text-gray-700">
+                    {item.role}
+                  </span>
                 </div>
               </FadeIn>
             ))}
           </div>
         </div>
 
-        {/* Team */}
+        {/* Award */}
+        <FadeIn delay={100}>
+          <div className="mt-24 p-8 md:p-12 bg-black text-white">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+                  Recognition
+                </p>
+                <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight">
+                  Gold Winner
+                </h3>
+                <p className="text-gray-400 mt-1">
+                  PromaxBDA Latin America Awards 2016 — Best Visual
+                </p>
+              </div>
+              <div className="text-6xl md:text-8xl font-black text-gray-800 leading-none">
+                AU
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Clients */}
+        <div className="mt-24">
+          <FadeIn>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+              Brands & Agencies I&apos;ve Worked With
+            </h2>
+            <p className="text-sm text-gray-400 mb-12">
+              From broadcast television to tech, fintech, and global brands.
+            </p>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {clients.map((client) => (
+                <div
+                  key={client.name}
+                  className="aspect-[3/2] border border-gray-200 flex items-center justify-center p-4 hover:border-gray-400 hover:bg-gray-50 transition-all group"
+                >
+                  <span className="text-xs font-bold text-gray-300 uppercase tracking-wider text-center group-hover:text-gray-500 transition-colors">
+                    {client.short || client.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn delay={200}>
+            <p className="mt-6 text-xs text-gray-300 text-center">
+              Logo placeholders — replace with actual client logos
+            </p>
+          </FadeIn>
+        </div>
+
+        {/* Education */}
         <div className="mt-24">
           <FadeIn>
             <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-12">
-              Team
+              Education
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "Your Name", role: "Founder & Creative Director" },
-              { name: "Team Member", role: "Motion Designer" },
-              { name: "Team Member", role: "Brand Designer" },
-            ].map((member, index) => (
+              {
+                school: "Fundação Dom Cabral",
+                degree: "Postgraduate in Business Management",
+                year: "2015 — 2016",
+              },
+              {
+                school: "Panamericana Escola de Arte e Design",
+                degree: "Graphic Design",
+                year: "2010 — 2012",
+              },
+              {
+                school: "Universidade Anhembi Morumbi",
+                degree: "Social Communication — Radio & TV",
+                year: "2006 — 2009",
+              },
+            ].map((edu, index) => (
               <FadeIn key={index} delay={index * 100}>
-                <div>
-                  <div className="aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 mb-4" />
-                  <h3 className="text-base font-bold uppercase tracking-tight">
-                    {member.name}
+                <div className="border-t-2 border-black pt-6">
+                  <h3 className="text-sm font-bold uppercase tracking-tight">
+                    {edu.school}
                   </h3>
-                  <p className="text-sm text-gray-400 mt-1">{member.role}</p>
+                  <p className="text-sm text-gray-500 mt-2">{edu.degree}</p>
+                  <p className="text-xs text-gray-400 mt-1">{edu.year}</p>
                 </div>
               </FadeIn>
             ))}
