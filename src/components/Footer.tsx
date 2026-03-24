@@ -30,7 +30,7 @@ export default function Footer() {
               <Link href="/" className="text-sm text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/projects" className="text-sm text-gray-300 hover:text-white transition-colors">Projects</Link>
               <Link href="/shop" className="text-sm text-gray-300 hover:text-white transition-colors">Shop</Link>
-              <Link href="/info" className="text-sm text-gray-300 hover:text-white transition-colors">Info</Link>
+              <Link href="/info" className="text-sm text-gray-300 hover:text-white transition-colors">Who</Link>
               <Link href="/contact" className="text-sm text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
           </div>

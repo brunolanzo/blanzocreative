@@ -1,7 +1,7 @@
 import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
-  title: "Info — Blanzo Creative",
+  title: "Who — Blanzo Creative",
   description:
     "Meet Bruno Lanzo — motion design specialist with 15+ years crafting visuals for Globo, Uber, Warner Bros. Discovery, and more.",
 };
@@ -44,7 +44,7 @@ export default function InfoPage() {
         {/* Header */}
         <FadeIn>
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight">
-            Info
+            Who
           </h1>
         </FadeIn>
 
