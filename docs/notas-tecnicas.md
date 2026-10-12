@@ -109,13 +109,10 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 
 - **Adaptador:** OpenNext (`@netlify/plugin-nextjs` 5.16.x), com suporte ao Next 16. Um adaptador oficial do Netlify chega no fim de 2026, automático.
 - **Cache do CDN e query:** a chave do cache só considera os parâmetros internos do Next. Na rota `/trabalhos`, mandar o cabeçalho `Netlify-Vary: query=tag` e confirmar num deploy preview.
-- **Créditos (plano Free):**
-  - 300/mês;
-  - deploy de produção = 15;
-  - 20/GB de tráfego;
-  - 2 a cada 10 mil requisições;
-  - deploy previews grátis.
-  - Ao acabar, o site pausa.
+- **Plano da conta (conferido na Fase 7):** Free **antigo**, sem créditos (conta de 2024; `type_slug: free-is-free`).
+  - Limites por mês: 100 GB de tráfego e 300 minutos de build (rígidos), 125 mil execuções de função por site, 1 build por vez.
+  - Passou do limite: os sites da conta ficam suspensos até o fim do mês. Sem cobrança.
+  - Trocar para o plano de créditos (300 créditos, deploy = 15) é irreversível e dá menos folga para este site. Não trocar.
 - **`proxy.ts`** roda como Edge Function: sem sistema de arquivos.
 
 ## Como ficou na Fase 3 (home e /trabalhos)
@@ -174,9 +171,10 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
   - Token criado em 11/10/2026 pelo CLI: "Site Blanzo - pre-visualizacao", papel viewer. Para revogar: sanity.io/manage → projeto → API → Tokens.
 - **Cache:** a página de projeto usa as tags `project`, `project:<slug>`, `client`, `tag` e `mux.videoAsset`.
   - Na Fase 7, o webhook precisa incluir os documentos `mux.videoAsset`: o vídeo do Mux termina de processar depois da publicação.
-- **Intro da home:** o script que decide se ela aparece foi para o `<head>` do layout.
+- **Intro da home:** o script que decide se ela aparece foi para o layout.
   - Ele roda uma vez por carregamento e não é mais desenhado pelo React na navegação, o que gerava um aviso.
   - Também passou a seguir a Buff: a intro só toca quando a visita começa pela home.
+  - Na Fase 7 ele saiu do `<head>` e virou o primeiro item do `<body>` (motivo na seção da Fase 7).
 
 ### Revisão de código da Fase 4 (corrigido antes da aprovação)
 
@@ -248,14 +246,40 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
   - O vídeo do painel de transição só existe durante a troca. Escondido, ele contava como maior elemento (LCP).
   - `experimental.inlineCss`: o CSS do site (~10 KB comprimido) vai no HTML. A primeira pintura caiu de 1,1s para 0,8s no celular.
   - Intro da home medida: o vídeo do logo é o LCP da home (3,2s no celular, nota 94). Fica como está.
-- **Contraste (pendente de decisão do usuário):** o cinza de texto apagado do DS (`--text-muted` #6E6E6E sobre preto, 4,1:1) e o branco sobre o vermelho-rosado (3,6:1) ficam abaixo de 4,5:1 em texto pequeno (WCAG AA).
+- **Contraste (decidido em 12/10/2026):** o cinza apagado do DS (`--text-muted` #6E6E6E sobre preto, 4,1:1) saiu do texto pequeno, que agora usa o cinza secundário. O branco sobre o vermelho-rosado (3,6:1) ficou, e é o único alerta de acessibilidade que sobra (filtro ativo). Detalhes em `docs/tokens.md` §11.
 
 ## Fase 7 (deploy)
 
 - **GitHub:** repositório `brunolanzo/blanzocreative`. O conteúdo antigo (outra versão do site, com Supabase) foi substituído a pedido do usuário, sem backup.
   - Autor dos commits: `brunolanzo` com o e-mail privado do GitHub (`brunolanzo@users.noreply.github.com`).
-- **Netlify:** `netlify.toml` com `npm run build`, `publish = ".next"` e Node 24.
-  - O endereço do site cai para a variável `URL` do Netlify quando `NEXT_PUBLIC_SITE_URL` não existe (`src/lib/site-url.ts`).
+- **Netlify:** site `blanzocreative` (https://blanzocreative.netlify.app), time "Blanzo", ligado ao GitHub (branch `main`).
+  - `netlify.toml` com `npm run build`, `publish = ".next"` e Node 24. O primeiro deploy levou 74s.
+  - Variáveis: as cinco do README, menos `NEXT_PUBLIC_SITE_URL` (de propósito). O endereço cai para a variável `URL` do Netlify (`src/lib/site-url.ts`), que existe no build **e** nas páginas refeitas depois (conferido: canônico e JSON-LD certos após o webhook).
+  - Na mesma conta há outro site antigo e parado (`tubular-muffin-295776`, de 2024), que divide os limites do plano.
+- **Sanity:** CORS `https://blanzocreative.netlify.app` com credenciais. Webhook "Site: atualizar ao publicar" com a configuração do README.
+  - Teste de ponta a ponta: um documento `mux.videoAsset` criado e apagado pela API (não aparece no site). As duas entregas voltaram 200, e as páginas foram refeitas na hora seguinte.
+- **O que o Netlify injeta no HTML** (fora do nosso código):
+  - um comentário de propaganda no `<head>`, logo depois do `<meta charset>`, precedido de quebra de linha;
+  - o script `/.netlify/scripts/hud` depois do `</html>`, que desenha o selo "Powered by Netlify" no canto inferior direito. O selo vem ligado em projetos Free criados desde 19/08/2026 e se desliga em **Project configuration → General → Powered by Netlify badge**, sem novo deploy.
+- **Erro de hidratação (#418) causado pelo comentário:**
+  - A quebra de linha vira um nó de texto no `<head>`. O React 19 hidrata pela posição os filhos do `<head>` que não são "hoistable", e o nosso `<script>` da intro era um deles. Ao achar texto onde esperava elemento, o React descartava o HTML do servidor e refazia a página inteira no navegador.
+  - Provado nos dois sentidos: tirar o comentário do HTML publicado zera o erro, e pôr um comentário igual no build local o reproduz. O script do selo não interfere.
+  - **Correção:** o script da intro virou o primeiro item do `<body>`. Regra: nada que o React precise hidratar pela posição no `<head>` do layout do site (só `<meta>`, `<link>`, `<title>` e scripts `async`).
+- **404 no pré-carregamento de `/trabalhos?tag=…`:**
+  - Logo após o build, o HTML traz as dicas de pré-carregamento marcadas como desatualizadas (`InliningHintsStale`), e o navegador pede a estrutura de cada link.
+  - Depois que a página é refeita (qualquer publicação no painel), as dicas vêm atualizadas. O roteador do Next passa a reaproveitar a estrutura de `/trabalhos` para `/trabalhos?tag=…` e pede o trecho `trabalhos/__PAGE__`, que não existe na rota reescrita (`/trabalhos/filtro/[tag]`): 404.
+  - Reproduzido no `next start` local depois de um aviso assinado ao `/api/revalidate`. Não é coisa do Netlify.
+  - **Correção:** o `AppLink` não pré-carrega links com `?tag=`. O clique continua navegando sem recarregar, já filtrado.
+- **Home:** ganhou endereço canônico (`/`).
+- **Lighthouse no site publicado** (12/10/2026, depois do primeiro deploy, ainda com o erro #418):
+
+  | | Desempenho | Acessibilidade | Boas práticas | SEO |
+  |---|---|---|---|---|
+  | Celular (home, /trabalhos, projeto) | 98 · 99 · 97 | 96 · 96 · 100 | 96 | 100 |
+  | Computador | 100 · 99 · 99 | 96 · 96 · 100 | 96 | 100 |
+
+  - LCP no celular: 1,2–2,5s; TBT 0–10 ms; CLS ≤ 0,002.
+  - "Boas práticas" 96 era o erro #418 no console; a acessibilidade 96 é o filtro ativo (branco sobre vermelho-rosado).
 - **Mux:** sem MP4 por padrão (adicional pago). `resolveVideo` só tenta o MP4 quando o asset tem o arquivo `highest.mp4` (`muxMp4` na consulta).
 - **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
 
@@ -267,3 +291,4 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 - [Mux: MP4 estático](https://www.mux.com/docs/guides/enable-static-mp4-renditions) · [Mux: imagens do vídeo](https://www.mux.com/docs/guides/get-images-from-a-video) · [Mux: plano grátis](https://www.mux.com/blog/free-plan)
 - [Licença do GSAP](https://gsap.com/standard-license/) · [Lenis](https://github.com/darkroomengineering/lenis)
 - [Next.js no Netlify](https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/) · [Créditos do Netlify](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/) · [Cache do Netlify e query](https://answers.netlify.com/t/nextjs-netlify-cache-doesnt-take-into-account-query-parameters-by-default/131312/2)
+- [Planos antigos do Netlify](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-legacy-plans/legacy-pricing-plans/) · [Selo "Powered by Netlify"](https://docs.netlify.com/manage/projects/powered-by-netlify-badge/) · [Lançamento do selo](https://www.netlify.com/changelog/2026-08-19-pre-launch-toolbar-and-powered-by-netlify-badge/)

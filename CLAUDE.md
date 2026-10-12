@@ -61,6 +61,8 @@ scripts/seed/          conteúdo de exemplo (content.ts) e envio ao Sanity (inde
 - **`cn()` só junta classes** (sem tailwind-merge, para não somar dependência): não passe por `className` uma classe que conflite com a do componente (ex.: `absolute` contra `relative`). Use uma prop, como o `overlay` da `ControlPill`.
 - **Movimento em JS:** `src/lib/motion.ts` (EASE, DURATION, STAGGER). Sempre respeitar `prefersReducedMotion()` (ou `useReducedMotion()` em componentes).
 - **Links internos: sempre `AppLink`** (`@/components/navigation/AppLink`), nunca `next/link` direto: é ele que pede a transição de página. Links externos continuam `<a>`.
+  - Ele não pré-carrega links com `?tag=`: o rewrite de `/trabalhos?tag=` confunde o pré-carregamento do Next (404 depois de cada publicação). Detalhes em `docs/notas-tecnicas.md`, Fase 7.
+- **Nada de `<script>` inline no `<head>` do layout do site.** O Netlify injeta um comentário com quebra de linha ali, e o React 19 falha a hidratação de tudo o que precisa achar pela posição no `<head>` (erro #418, página refeita no navegador). Scripts que precisam rodar antes da pintura vão no começo do `<body>`, como o da intro.
 - **Aparecer ao rolar:** embrulhe o grupo em `<Reveal>` (os filhos diretos sobem 16px com fade, em sequência). O que já está na tela ao abrir não anima. Não use no grid de projetos (o filtro já anima com Flip).
 - **Títulos de página:** `Display` com `as="h1"` divide as palavras e anima em CSS (sem esperar o JS). Elas esperam a intro e o painel de transição.
 - **Peso do JavaScript:** nada do `next-sanity/hooks` ou `@sanity/visual-editing` em componentes do site: eles trazem ~200 KB para todas as visitas. As ferramentas da pré-visualização só carregam com o draft mode ligado.

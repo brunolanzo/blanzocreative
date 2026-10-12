@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { stegaClean } from 'next-sanity'
 import { AboutSummary } from '@/components/home/AboutSummary'
 import { ClientWall } from '@/components/home/ClientWall'
@@ -16,6 +17,8 @@ import { Reveal } from '@/components/motion/Reveal'
  * A chamada para contato e o rodapé vêm do layout. Clientes, Sobre e Contato
  * podem ser desligados em Configurações → Home.
  */
+export const metadata: Metadata = { alternates: { canonical: '/' } }
+
 export default async function HomePage() {
   const [{ settings, siteName, ui, socials }, data] = await Promise.all([
     getSettings(),

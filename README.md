@@ -2,6 +2,8 @@
 
 O site-portfólio da Blanzo: Next.js no Netlify, conteúdo no Sanity (painel em `/admin`) e vídeos no Mux ou no próprio Sanity.
 
+No ar em **https://blanzocreative.netlify.app** (painel em https://blanzocreative.netlify.app/admin).
+
 Tudo o que aparece no site se edita no painel: veja **[docs/como-usar-o-painel.md](docs/como-usar-o-painel.md)**.
 
 Quanto custa e a partir de quando se paga: **[docs/custos.md](docs/custos.md)**.
@@ -58,6 +60,7 @@ npm run dev
 2. As configurações de build já vêm do arquivo `netlify.toml` (`npm run build`, Node 24).
 3. Antes do primeiro deploy, adicione as variáveis do passo 2.
 4. **Deploy**. O endereço fica algo como `https://nome-do-site.netlify.app`.
+5. Desligue o selo "Powered by Netlify", que vem ligado em projetos novos do plano Free: **Project configuration → General → Powered by Netlify badge**. Não precisa de novo deploy.
 
 Daí em diante, cada envio para a branch `main` do GitHub gera um deploy novo.
 

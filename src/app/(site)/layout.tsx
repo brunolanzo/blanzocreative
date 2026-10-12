@@ -53,11 +53,9 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
   return (
     // suppressHydrationWarning: a intro da home marca o <html> (data-intro) antes da hidratação.
     <html lang="pt-BR" className={manrope.variable} suppressHydrationWarning>
-      <head>
+      <body>
         {/* Decide antes da primeira pintura se a intro da home aparece (ver intro-gate.ts). */}
         <script dangerouslySetInnerHTML={{ __html: INTRO_GATE_SCRIPT }} />
-      </head>
-      <body>
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:fixed focus:top-16 focus:left-16 focus:z-(--z-cursor) focus:rounded-pill focus:bg-paper focus:px-16 focus:py-8 focus:text-label focus:font-medium focus:text-ink-1000 focus:uppercase"

@@ -4,7 +4,7 @@ Valores conferidos nas páginas oficiais de cada serviço em **12/10/2026** (lin
 
 **Resumo:** com o tráfego de um portfólio (alguns milhares de visitas por mês), o site roda **de graça**. Dois cuidados evitam surpresas:
 
-1. **Não mande código para o GitHub mais de ~15 vezes por mês.** Cada deploy no Netlify gasta créditos. Editar e publicar no painel **não** gasta: o site atualiza pelo webhook.
+1. **Não troque o plano do Netlify para o de créditos.** Sua conta está no plano Free antigo, que dá mais folga para este site, e a troca não tem volta. Se o painel do Netlify sugerir "Switch to a credit-based plan", ignore.
 2. **Reel e vídeos longos no Mux, não como arquivo no Sanity.** Vídeo servido pelo Sanity conta nos 100 GB de banda do plano grátis.
 
 ---
@@ -13,7 +13,7 @@ Valores conferidos nas páginas oficiais de cada serviço em **12/10/2026** (lin
 
 | Serviço | Plano | Custo hoje |
 |---|---|---|
-| Netlify (hospedagem) | Free | US$ 0 |
+| Netlify (hospedagem) | Free antigo (sem créditos) | US$ 0 |
 | Sanity (painel e conteúdo) | Free | US$ 0 |
 | GitHub (código) | Free | US$ 0 |
 | Web3Forms (formulário) | Free | US$ 0 |
@@ -22,23 +22,19 @@ Valores conferidos nas páginas oficiais de cada serviço em **12/10/2026** (lin
 
 ## Netlify
 
-**Free: 300 créditos por mês**, com limite rígido ([como os créditos funcionam](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/)).
+Sua conta é de 2024, então está no **plano Free antigo**, anterior aos créditos. Contas criadas a partir de 04/09/2025 já entram no plano de créditos ([planos antigos](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-legacy-plans/legacy-pricing-plans/)).
 
-| O que gasta crédito | Quanto |
-|---|---|
-| Deploy de produção (cada envio de código para `main`) | 15 créditos |
-| Tráfego | 20 créditos por GB |
-| Requisições | 2 créditos a cada 10 mil |
-| Funções (páginas refeitas depois de publicar no painel) | 10 créditos por GB-hora |
-| Deploy de teste (*deploy preview*), deploy que falhou, voltar a uma versão anterior | 0 |
+| Limite por mês | Quanto | Quanto o site usa |
+|---|---|---|
+| Tráfego (conta toda) | 100 GB | ~1 GB com 3 mil visitas: as imagens e os vídeos vêm do Sanity e do Mux, e o Netlify só entrega as páginas (~300 KB na primeira visita) |
+| Minutos de build (conta toda) | 300 | 1 a 2 por deploy (cada envio de código para `main`); o primeiro levou 74 segundos |
+| Execuções de função | 125 mil por site | poucas: as páginas saem do cache e só são refeitas depois de publicar no painel |
 
-([preços](https://www.netlify.com/pricing/))
-
-- **Se os créditos acabarem:** todos os sites da conta ficam fora do ar ("Site not available") até o mês seguinte ou até um upgrade. Não há cobrança surpresa ([projetos pausados](https://docs.netlify.com/manage/accounts-and-billing/billing/resume-paused-projects/)).
-- **Estimativa para o site:**
-  - **Visitas:** as imagens e os vídeos vêm do Sanity e do Mux, então o Netlify só entrega as páginas (~300 KB na primeira visita). 3 mil visitas por mês dão ~1 GB e ~60 mil requisições, cerca de 30 créditos.
-  - **Deploys:** ~15 créditos cada. Até uns 15 por mês cabe com folga.
-- **Primeiro plano pago** ([preços](https://www.netlify.com/pricing/)):
+- **Publicar no painel não gera deploy** nem gasta minutos de build: o site atualiza pelo webhook.
+- **Se passar de um limite:** os sites da conta ficam suspensos até o fim do mês. Não há cobrança. O Netlify avisa em 50%, 75%, 90% e 100% ([plano Free](https://www.netlify.com/blog/introducing-netlify-free-plan/)).
+- **Divide os limites com** o outro site da conta (`tubular-muffin-295776`, do projeto calculosimples), parado desde 2024.
+- **Não troque para o plano de créditos:** a troca é irreversível ([planos antigos](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-legacy-plans/legacy-pricing-plans/)). Lá, o Free tem 300 créditos por mês e cada deploy gasta 15, o que dá uns 20 deploys antes de contar o tráfego ([como os créditos funcionam](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/)).
+- **Se um dia precisar de mais:** os planos pagos à venda hoje são os de créditos (e a troca é definitiva) ([preços](https://www.netlify.com/pricing/)):
   - **Personal:** US$ 9/mês, 1.000 créditos, com recarga automática opcional de US$ 5 por 500 créditos (vem desligada);
   - **Pro:** US$ 20/mês, 3.000 créditos.
 

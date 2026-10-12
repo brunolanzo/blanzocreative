@@ -5,7 +5,8 @@
 **Fase 3: home e /trabalhos.** Aprovada em 11/10/2026, com um ajuste pedido: o reel da home toca sozinho e o único botão é o de som, discreto (sem "Assistir ao reel" e sem "Pausar").
 **Fase 4: página de projeto e blocos.** Aprovada em 11/10/2026 (vídeos dos projetos só com "Ativar som", como na home).
 **Fase 5: Sobre, Contato, logo e cursor.** Aprovada em 11/10/2026.
-**Fase 6: polimento (movimento, desempenho, SEO).** Entregue em 11/10/2026, aguardando aprovação.
+**Fase 6: polimento (movimento, desempenho, SEO).** Aprovada em 12/10/2026, com o texto pequeno trocando o cinza apagado pelo cinza secundário do DS.
+**Fase 7: deploy e documentação.** Entregue em 12/10/2026, aguardando aprovação. No ar em https://blanzocreative.netlify.app.
 
 Documentos desta fase:
 - `docs/referencia-buff.md`: análise da estrutura, do layout e do movimento do buffmotion.com.
