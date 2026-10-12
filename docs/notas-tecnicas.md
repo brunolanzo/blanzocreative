@@ -271,15 +271,17 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
   - Reproduzido no `next start` local depois de um aviso assinado ao `/api/revalidate`. Não é coisa do Netlify.
   - **Correção:** o `AppLink` não pré-carrega links com `?tag=`. O clique continua navegando sem recarregar, já filtrado.
 - **Home:** ganhou endereço canônico (`/`).
-- **Lighthouse no site publicado** (12/10/2026, depois do primeiro deploy, ainda com o erro #418):
+- **Lighthouse no site publicado** (12/10/2026, com as correções acima). Ordem: home · /trabalhos · projeto · /sobre · /contato.
 
   | | Desempenho | Acessibilidade | Boas práticas | SEO |
   |---|---|---|---|---|
-  | Celular (home, /trabalhos, projeto) | 98 · 99 · 97 | 96 · 96 · 100 | 96 | 100 |
-  | Computador | 100 · 99 · 99 | 96 · 96 · 100 | 96 | 100 |
+  | Celular | 98–99 · 98 · 98 · 99 · 100 | 96 · 96 · 100 · 100 · 100 | 100 | 100 |
+  | Computador | 99 · 100 · 99 · 100 · 100 | 96 · 96 · 100 · 100 · 100 | 100 | 100 |
 
-  - LCP no celular: 1,2–2,5s; TBT 0–10 ms; CLS ≤ 0,002.
-  - "Boas práticas" 96 era o erro #418 no console; a acessibilidade 96 é o filtro ativo (branco sobre vermelho-rosado).
+  - LCP no celular: 1,2–2,5s; TBT 0–40 ms; CLS ≤ 0,003. Nenhum erro no console.
+  - A primeira visita depois de uma publicação é mais lenta, porque a página é refeita nessa hora (uma medição da home deu 82, com LCP de 3,8s). As seguintes saem do cache.
+  - Antes das correções, "Boas práticas" era 96 em todas as páginas (o erro #418). A acessibilidade 96 é o filtro ativo (branco sobre vermelho-rosado).
+- **Commits só de documentação:** ponha `[skip netlify]` na mensagem para o Netlify não gerar deploy.
 - **Mux:** sem MP4 por padrão (adicional pago). `resolveVideo` só tenta o MP4 quando o asset tem o arquivo `highest.mp4` (`muxMp4` na consulta).
 - **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
 
