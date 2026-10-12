@@ -250,6 +250,15 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
   - Intro da home medida: o vídeo do logo é o LCP da home (3,2s no celular, nota 94). Fica como está.
 - **Contraste (pendente de decisão do usuário):** o cinza de texto apagado do DS (`--text-muted` #6E6E6E sobre preto, 4,1:1) e o branco sobre o vermelho-rosado (3,6:1) ficam abaixo de 4,5:1 em texto pequeno (WCAG AA).
 
+## Fase 7 (deploy)
+
+- **GitHub:** repositório `brunolanzo/blanzocreative`. O conteúdo antigo (outra versão do site, com Supabase) foi substituído a pedido do usuário, sem backup.
+  - Autor dos commits: `brunolanzo` com o e-mail privado do GitHub (`brunolanzo@users.noreply.github.com`).
+- **Netlify:** `netlify.toml` com `npm run build`, `publish = ".next"` e Node 24.
+  - O endereço do site cai para a variável `URL` do Netlify quando `NEXT_PUBLIC_SITE_URL` não existe (`src/lib/site-url.ts`).
+- **Mux:** sem MP4 por padrão (adicional pago). `resolveVideo` só tenta o MP4 quando o asset tem o arquivo `highest.mp4` (`muxMp4` na consulta).
+- **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
+
 ## Fontes da pesquisa
 
 - [Next.js 16](https://nextjs.org/blog/next-16) · [revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag) · [proxy](https://nextjs.org/docs/app/api-reference/file-conventions/proxy) · [rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites)

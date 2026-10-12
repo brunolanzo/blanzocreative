@@ -24,6 +24,7 @@ const VIDEO = `
   "posterAspect": poster.asset->metadata.dimensions.aspectRatio,
   "playbackId": mux.asset->playbackId,
   "muxAspect": mux.asset->data.aspect_ratio,
+  "muxMp4": count(mux.asset->data.static_renditions.files[name == "highest.mp4"]) > 0,
   "hasAudio": count(mux.asset->data.tracks[type == "audio"]) > 0,
   "fileUrl": file.asset->url,
   url,

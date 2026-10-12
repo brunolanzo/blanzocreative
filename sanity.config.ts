@@ -34,9 +34,9 @@ export default defineConfig({
       previewUrl: { initial: '/', previewMode: { enable: '/api/draft-mode/enable' } },
     }),
     muxInput({
-      // "basic" não cobra codificação no Mux; "highest" gera também um MP4 (usado nos vídeos que tocam sozinhos).
+      // "basic" não cobra codificação no Mux. O MP4 extra (static_renditions: ['highest']) é um adicional
+      // pago no Mux e fica desligado: os vídeos tocam em streaming. Se ligar, o site passa a usar o MP4 sozinho.
       video_quality: 'basic',
-      static_renditions: ['highest'],
       tool: { title: 'Vídeos (Mux)' },
     }),
     ptBRLocale(),

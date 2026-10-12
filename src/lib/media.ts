@@ -24,6 +24,8 @@ export type VideoData = {
   playbackId?: string | null
   /** Formato informado pelo Mux, ex.: "16:9". */
   muxAspect?: string | null
+  /** O vídeo do Mux tem a versão MP4 (adicional pago, desligado no painel por padrão). */
+  muxMp4?: boolean | null
   /** O Mux diz se o vídeo tem áudio; nos outros casos não dá para saber (null). */
   hasAudio?: boolean | null
   fileUrl?: string | null
@@ -67,8 +69,9 @@ export function resolveVideo(video: VideoData | null | undefined, mode: Playback
     case 'mux': {
       const id = video.playbackId
       if (!id) return null
-      // O MP4 do Mux fica pronto depois do HLS: se ainda não existir, cai para o HLS.
-      return mode === 'loop'
+      // Vídeo que toca sozinho usa o MP4 quando ele existe (fica pronto depois do HLS: se falhar, cai
+      // para o HLS). Sem MP4 (o padrão no plano grátis), vai direto para o streaming.
+      return mode === 'loop' && video.muxMp4
         ? { kind: 'file', src: muxMp4(id), fallback: { kind: 'hls', src: muxHls(id) } }
         : { kind: 'hls', src: muxHls(id) }
     }

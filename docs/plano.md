@@ -415,6 +415,9 @@ Como os vídeos do Mux tocam:
 - Não está claro se o plano grátis do Mux gera MP4. Se não gerar, os vídeos que tocam sozinhos também usam HLS.
   - **Fase 3:** o código já faz isso sozinho (tenta o MP4 e, se falhar, toca o HLS).
   - O teste com um vídeo real do Mux fica para quando a conta do Mux for criada, porque os vídeos de exemplo estão no próprio Sanity.
+  - **Fase 7 (12/10/2026):** a documentação do Mux trata o MP4 como adicional pago.
+    - O plugin agora vem sem MP4 e os vídeos do Mux tocam em HLS.
+    - O site detecta, vídeo a vídeo, se existe MP4 (`muxMp4`) e o usa quando existir.
 
 Regras do componente de vídeo:
 - poster sempre;
