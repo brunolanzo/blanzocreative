@@ -1,0 +1,30 @@
+<!-- @dsCard group="Studio Site" viewport="1440x900" name="blanzo.studio — full site" subtitle="Home, work, case study, services, about, contact — click-through" -->
+<html><head><meta charset="utf-8"><title>Blanzo — Creative Studio</title>
+<link rel="icon" href="../../assets/favicon/blanzo-favicon.png">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>html,body{height:100%}#scroller{height:100vh;overflow-y:auto}</style>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { Button, Tag, Eyebrow, Display, Field, Logo, Marquee, ProjectTile, VideoFrame, ServiceRow, StatBlock } = window.BlanzoDesignSystem_58a5f6;
+Object.assign(window, { Button, Tag, Eyebrow, Display, Field, Logo, Marquee, ProjectTile, VideoFrame, ServiceRow, StatBlock });
+</script>
+<script type="text/babel" src="Chrome.jsx"></script>
+<script type="text/babel" src="HomeScreen.jsx"></script>
+<script type="text/babel" src="WorkScreens.jsx"></script>
+<script type="text/babel" src="AboutContact.jsx"></script>
+<script type="text/babel">
+function App(){
+  const [route,setRoute]=React.useState("home");
+  const go=(r)=>{setRoute(r);const el=document.getElementById("scroller");if(el)el.scrollTop=0;};
+  const screens={home:HomeScreen,work:WorkScreen,case:CaseStudyScreen,services:ServicesScreen,about:AboutScreen,contact:ContactScreen};
+  const Screen=screens[route]||HomeScreen;
+  return <div id="scroller"><Nav route={route} go={go}/><main key={route} style={{animation:"none"}}><Screen go={go}/></main><Footer go={go}/></div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body></html>

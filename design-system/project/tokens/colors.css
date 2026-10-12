@@ -1,0 +1,62 @@
+:root{
+/* ---- Base scale: ink (black) → paper (white). The brand is monochrome first. ---- */
+--ink-1000:#000000;/* true black — primary brand ground */
+--ink-900:#0A0A0A;
+--ink-800:#141414;/* raised surface on black */
+--ink-700:#1E1E1E;
+--ink-600:#2C2C2C;/* hairline borders on black */
+--ink-500:#4A4A4A;
+--ink-400:#6E6E6E;/* muted text on black */
+--ink-300:#9B9B9B;
+--ink-200:#C8C8C8;
+--ink-100:#E4E4E4;/* hairline borders on white */
+--ink-050:#F2F2F2;/* raised surface on white */
+--paper:#FFFFFF;
+
+/* ---- Accent: red-pink. Single highlight colour, used sparingly. ---- */
+--flash-600:#C4103C;/* pressed */
+--flash-500:#FF2E5B;/* the accent */
+--flash-400:#FF5C7E;/* hover / lighter */
+--flash-100:#FFE1E8;/* tint wash */
+
+/* ---- Semantic: dark theme (default — Blanzo is black-first) ---- */
+--surface-page:var(--ink-1000);
+--surface-raised:var(--ink-800);
+--surface-card:var(--ink-900);
+--surface-inverse:var(--paper);
+--surface-accent:var(--flash-500);
+
+--text-primary:var(--paper);
+--text-secondary:var(--ink-300);
+--text-muted:var(--ink-400);
+--text-inverse:var(--ink-1000);
+--text-accent:var(--flash-500);
+--text-link:var(--paper);
+--text-link-hover:var(--flash-500);
+
+--border-hairline:var(--ink-600);
+--border-strong:var(--ink-500);
+--border-inverse:var(--ink-100);
+--border-accent:var(--flash-500);
+
+--focus-ring:var(--flash-500);
+--overlay-scrim:rgba(0,0,0,.72); /* @kind color */
+--protect-gradient:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 40%,rgba(0,0,0,0) 100%); /* @kind color */
+}
+
+/* ---- Semantic: light theme (documents, decks on paper, print) ---- */
+[data-theme="light"]{
+--surface-page:var(--paper);
+--surface-raised:var(--ink-050);
+--surface-card:var(--paper);
+--surface-inverse:var(--ink-1000);
+--text-primary:var(--ink-1000);
+--text-secondary:var(--ink-500);
+--text-muted:var(--ink-400);
+--text-inverse:var(--paper);
+--text-link:var(--ink-1000);
+--text-link-hover:var(--flash-500);
+--border-hairline:var(--ink-100);
+--border-strong:var(--ink-200);
+--border-inverse:var(--ink-600);
+}

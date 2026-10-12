@@ -1,0 +1,30 @@
+# Dependências
+/node_modules
+
+# Next.js
+/.next/
+/out/
+/build
+next-env.d.ts
+*.tsbuildinfo
+
+# Sanity
+/.sanity
+/dist
+
+# Variáveis de ambiente (segredos). O modelo .env.example vai para o Git.
+.env
+.env*.local
+
+# Arquivos gerados pelo script de placeholders/seed
+/scripts/placeholders/out/
+
+# Fontes pagas do pacote do design system: nunca usadas, nunca versionadas.
+/design-system/**/*.ttf
+/design-system/**/*.otf
+
+# Sistema
+.DS_Store
+*.log
+.vercel
+.netlify

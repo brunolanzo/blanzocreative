@@ -1,0 +1,10 @@
+:root{
+--radius-0:0px;/* default: the brand is square-cornered */
+--radius-sm:4px;
+--radius-md:8px;/* media tiles, inputs */
+--radius-lg:16px;
+--radius-pill:999px;/* buttons, tags, chips */
+--border-width:1px; /* @kind other */
+--border-width-strong:2px; /* @kind other */
+--hairline:1px solid var(--border-hairline); /* @kind other */
+}

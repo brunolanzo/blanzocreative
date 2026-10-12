@@ -1,0 +1,288 @@
+@import 'tailwindcss';
+
+/* ── Tokens do design system (valores originais; só a fonte mudou) ─────────── */
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/radius-borders.css';
+@import './tokens/elevation.css';
+@import './tokens/motion.css';
+/* Tokens técnicos criados para o site (docs/tokens.md §9) */
+@import './tokens/site.css';
+
+/*
+ * Ponte entre os tokens do DS e as classes do Tailwind.
+ * Só existem as cores, fontes, tamanhos, raios e curvas do DS.
+ *
+ * Espaçamento: os números são pixels e devem seguir a escala do DS
+ * (4, 8, 12, 16, 24, 32, 48, 64, 96, 144, 200). Ex.: p-16, gap-32, mt-48.
+ * Margem lateral e respiro entre seções: px-gutter e py-section (fluidos).
+ */
+@theme inline {
+  --color-*: initial;
+  --font-*: initial;
+  --font-weight-*: initial;
+  --text-*: initial;
+  --tracking-*: initial;
+  --leading-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --ease-*: initial;
+  --container-*: initial;
+  --aspect-*: initial;
+
+  --spacing: 1px;
+  --spacing-gutter: var(--gutter-page);
+  --spacing-section: var(--section-y);
+
+  /* Cores: escala */
+  --color-ink-1000: var(--ink-1000);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-ink-500: var(--ink-500);
+  --color-ink-400: var(--ink-400);
+  --color-ink-300: var(--ink-300);
+  --color-ink-200: var(--ink-200);
+  --color-ink-100: var(--ink-100);
+  --color-ink-050: var(--ink-050);
+  --color-paper: var(--paper);
+  --color-flash-600: var(--flash-600);
+  --color-flash-500: var(--flash-500);
+  --color-flash-400: var(--flash-400);
+  --color-flash-100: var(--flash-100);
+
+  /* Cores: papéis (seguem o tema claro/escuro do DS) */
+  --color-page: var(--surface-page);
+  --color-raised: var(--surface-raised);
+  --color-card: var(--surface-card);
+  --color-inverse: var(--surface-inverse);
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-muted: var(--text-muted);
+  --color-fg-inverse: var(--text-inverse);
+  --color-accent: var(--text-accent);
+  --color-hairline: var(--border-hairline);
+  --color-strong: var(--border-strong);
+
+  /* Fontes e pesos */
+  --font-sans: var(--font-sans);
+  --font-script: var(--font-script);
+  --font-mono: var(--font-mono);
+  --font-weight-light: var(--weight-light);
+  --font-weight-regular: var(--weight-regular);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-bold: var(--weight-bold);
+
+  /* Tamanhos de texto (com entrelinha e tracking do DS) */
+  --text-display-xl: var(--size-display-xl);
+  --text-display-xl--line-height: var(--lh-display);
+  --text-display-xl--letter-spacing: var(--tracking-display);
+  --text-display-l: var(--size-display-l);
+  --text-display-l--line-height: var(--lh-display);
+  --text-display-l--letter-spacing: var(--tracking-display);
+  --text-display-m: var(--size-display-m);
+  --text-display-m--line-height: var(--lh-display);
+  --text-display-m--letter-spacing: var(--tracking-display);
+  --text-h1: var(--size-h1);
+  --text-h1--line-height: var(--lh-heading);
+  --text-h1--letter-spacing: var(--tracking-heading);
+  --text-h2: var(--size-h2);
+  --text-h2--line-height: var(--lh-heading);
+  --text-h2--letter-spacing: var(--tracking-heading);
+  --text-h3: var(--size-h3);
+  --text-h3--line-height: var(--lh-heading);
+  --text-h3--letter-spacing: var(--tracking-heading);
+  --text-body-l: var(--size-body-l);
+  --text-body-l--line-height: var(--lh-body);
+  --text-body: var(--size-body);
+  --text-body--line-height: var(--lh-body);
+  --text-body-s: var(--size-body-s);
+  --text-body-s--line-height: var(--lh-body);
+  --text-label: var(--size-label);
+  --text-label--line-height: var(--lh-label);
+  --text-label--letter-spacing: var(--tracking-label);
+  --text-label-s: var(--size-label-s);
+  --text-label-s--line-height: var(--lh-label);
+  --text-label-s--letter-spacing: var(--tracking-label);
+
+  --tracking-display: var(--tracking-display);
+  --tracking-heading: var(--tracking-heading);
+  --tracking-label: var(--tracking-label);
+  --leading-display: var(--lh-display);
+  --leading-heading: var(--lh-heading);
+  --leading-body: var(--lh-body);
+
+  /* Raios, sombras, curvas */
+  --radius-0: var(--radius-0);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-glow: var(--glow-accent);
+  --ease-draw: var(--ease-draw);
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+
+  /* Larguras e proporções */
+  --container-content: var(--maxw-content);
+  --container-prose: var(--maxw-prose);
+  --aspect-card: var(--ratio-card);
+  --aspect-reel: var(--ratio-reel);
+}
+
+/* ── Utilitários do DS ──────────────────────────────────────────────────────── */
+
+/** Largura do conteúdo: até 1440px + margens laterais fluidas. */
+@utility container-site {
+  width: 100%;
+  max-width: calc(var(--maxw-content) + 2 * var(--gutter-page));
+  margin-inline: auto;
+  padding-inline: var(--gutter-page);
+}
+
+/** Painel preto desfocado (header ao rolar). */
+@utility glass-panel {
+  background-color: var(--overlay-scrim);
+  -webkit-backdrop-filter: var(--blur-panel);
+  backdrop-filter: var(--blur-panel);
+}
+
+/** Pílula de controle sobre vídeo: contorno branco a 40% sobre desfoque. */
+@utility glass-control {
+  border: 1px solid var(--control-outline);
+  -webkit-backdrop-filter: var(--blur-control);
+  backdrop-filter: var(--blur-control);
+}
+
+/** Degradê de proteção para texto sobre vídeo (o único degradê do DS). */
+@utility protect-gradient {
+  background: var(--protect-gradient);
+}
+
+/** Link de texto do DS: sublinhado de 1px que fica vermelho-rosado no hover. */
+@utility link {
+  color: var(--text-link);
+  border-bottom: 1px solid currentColor;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+  &:hover {
+    color: var(--text-link-hover);
+  }
+}
+
+/* ── Parede de clientes: logo que entra no lugar de outro ──────────────────── */
+@keyframes client-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ── Intro da home ──────────────────────────────────────────────────────────── */
+@keyframes intro-logo-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+/* Segurança: se o JS não rodar, a intro some sozinha depois de alguns segundos. */
+@keyframes intro-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+[data-home-intro] {
+  animation: intro-failsafe 0s linear 5s forwards;
+}
+[data-intro-logo] {
+  animation: intro-logo-in var(--dur-base) var(--ease-out) both;
+}
+html[data-intro='done'] [data-home-intro] {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-home-intro] {
+    display: none;
+  }
+}
+
+/* ── Títulos de página: palavras entram em sequência (CSS, sem esperar o JS) ──── */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+[data-word] {
+  animation: word-in var(--dur-base) var(--ease-out) both;
+}
+/* Esperam enquanto o painel de transição ou a intro da home cobrem a tela. */
+html[data-transition='covering'] [data-word],
+html[data-transition='covered'] [data-word],
+html:not([data-intro='done']):has([data-home-intro]) [data-word] {
+  animation-play-state: paused;
+}
+
+/* ── Cursor customizado (ligado no painel) ───────────────────────────────────── */
+/* Esconde o cursor do sistema; nos campos de texto ele volta (ver CustomCursor.tsx). */
+html[data-custom-cursor],
+html[data-custom-cursor] * {
+  cursor: none !important;
+}
+html[data-custom-cursor] :is(input, textarea, select, [contenteditable='true']) {
+  cursor: auto !important;
+}
+
+/* ── Base (tokens/base.css do DS) ───────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--surface-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--size-body);
+    line-height: var(--lh-body);
+    font-weight: var(--weight-regular);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--flash-500);
+    color: var(--paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Campos de formulário mantêm o cursor de texto nativo mesmo com cursor customizado. */
+  input,
+  textarea,
+  select {
+    cursor: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

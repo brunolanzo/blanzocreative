@@ -1,0 +1,27 @@
+/*
+ * Tokens criados para o site (não existem no design system).
+ * Todos técnicos ou tirados de valores que o DS só descreve em texto/componentes.
+ * Lista e justificativa em docs/tokens.md §9.
+ */
+:root {
+  /* Camadas */
+  --z-header: 50;
+  --z-menu: 60;
+  --z-modal: 70;
+  --z-transition: 80;
+  --z-cursor: 90;
+
+  /* Proporções */
+  --ratio-card: 3 / 2; /* cards de projeto (Buff) */
+  --ratio-reel: 16 / 9;
+
+  /* Pílulas sobre vídeo (componente VideoFrame do DS) */
+  --control-outline: rgba(255, 255, 255, 0.4);
+  --blur-control: blur(8px);
+
+  /* Hero: vídeo atrás de título (texto do DS: "~45% opacity") */
+  --hero-video-opacity: 0.45;
+
+  /* Header ganha o painel desfocado a partir daqui (componente Chrome do DS) */
+  --nav-scroll-threshold: 24px;
+}

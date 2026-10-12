@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Studio site" description="Blanzo studio page: film hero with protection gradient, capability marquee, work grid, numbered services, footer CTA." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0;background:#000;color:#fff;font-family:"Aeonik Pro","Helvetica Neue",sans-serif}a{color:#fff;text-decoration:none}</style></helmet>
+<div style="background:#000;color:#fff;min-height:100vh">
+<header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,64px);background:rgba(0,0,0,.72);backdrop-filter:saturate(140%) blur(18px);border-bottom:1px solid #2C2C2C">
+<img src="../../assets/logo/wordmark-white.png" alt="blanzo" style="height:26px" />
+<nav style="display:flex;gap:32px;align-items:center;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase">
+<a href="#work">work</a><a href="#services">services</a><a href="#about">about</a><a href="#contact" style="color:#FF2E5B">contact</a>
+</nav>
+</header>
+<section style="position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;padding:96px clamp(20px,5vw,64px) 64px;overflow:hidden">
+<video src="../../assets/motion/logo-trimpath-loop-long.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45"></video>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 40%,rgba(0,0,0,0) 100%)"></div>
+<div style="position:relative;display:flex;flex-direction:column;gap:24px">
+<div style="font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#FF2E5B">creative studio · motion first</div>
+<h1 style="margin:0;font-size:clamp(3.5rem,10vw,9rem);font-weight:500;line-height:.92;letter-spacing:-.04em;text-transform:lowercase">one mind,<br />whole production<span style="color:#FF2E5B">.</span></h1>
+<p style="margin:0;max-width:48ch;font-size:1.1875rem;line-height:1.5;color:#9B9B9B">I move between high-end motion design and full creative production — direction, shoot, edit, finish. One brief, one head, no handoff tax.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.Button" variant="primary" size="lg" hint-size="180px,52px">see the work</x-import>
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.Button" variant="outline" size="lg" hint-size="200px,52px">start a project</x-import>
+</div>
+</div>
+</section>
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.Marquee" items="{{ capabilities }}" accent-every="{{ 3 }}" speed="{{ 30 }}" hint-size="100%,96px"></x-import>
+<section id="work" style="padding:clamp(64px,10vw,144px) clamp(20px,5vw,64px)">
+<div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px">
+<div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E"><span>01</span><span style="width:24px;height:1px;background:currentColor;opacity:.5"></span><span>selected work</span></div>
+<h2 style="margin:0;font-size:clamp(2.25rem,5vw,4rem);font-weight:500;line-height:.92;letter-spacing:-.04em;text-transform:lowercase">things that move</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px 32px;align-items:start">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.ProjectTile" dc-props="{{ p }}" hint-size="100%,300px"></x-import>
+</sc-for>
+</div>
+</section>
+<section id="services" style="padding:clamp(64px,10vw,144px) clamp(20px,5vw,64px);border-top:1px solid #2C2C2C">
+<div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E;margin-bottom:48px"><span>02</span><span style="width:24px;height:1px;background:currentColor;opacity:.5"></span><span>capabilities</span></div>
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.ServiceRow" dc-props="{{ s }}" hint-size="100%,90px"></x-import>
+</sc-for>
+</section>
+<footer id="contact" style="border-top:1px solid #2C2C2C;padding:64px clamp(20px,5vw,64px) 32px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap">
+<h2 style="margin:0;font-size:clamp(2.25rem,5vw,4rem);font-weight:500;line-height:.92;letter-spacing:-.04em;text-transform:lowercase">let's make it move<span style="color:#FF2E5B">.</span></h2>
+<x-import component-from-global-scope="BlanzoDesignSystem_58a5f6.Button" variant="accent" size="lg" hint-size="200px,52px">start a project</x-import>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-size:.875rem;color:#6E6E6E">
+<div style="display:flex;gap:24px"><a href="#">instagram</a><a href="#">vimeo</a><a href="#">linkedin</a></div>
+<img src="../../assets/logo/monogram-white.png" alt="" style="height:20px;opacity:.6" />
+<span>© 2026 Blanzo Creative Studio</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const A = "../../assets/motion/";
+    return {
+      capabilities: ["motion design", "creative direction", "3d", "production", "edit", "grade"],
+      projects: [
+        { index: "01", title: "trim path in / out", client: "Blanzo — self-initiated", year: "2025", tags: ["motion", "type in motion"], ratio: "16 / 9", video: A + "logo-trimpath-loop-long.mp4" },
+        { index: "02", title: "bl loop", client: "Blanzo — identity", year: "2025", tags: ["identity", "2d"], ratio: "4 / 5", video: A + "logo-trimpath-loop-short.mp4" },
+        { index: "03", title: "ball study", client: "Blanzo — R&D", year: "2024", tags: ["motion", "study"], ratio: "1 / 1", video: A + "logo-trimpath-ball-loop-short.mp4" },
+        { index: "04", title: "signature draw-on", client: "Blanzo — identity", year: "2024", tags: ["identity", "direction"], ratio: "16 / 9", video: A + "logo-full-animated.mp4" },
+      ],
+      services: [
+        { index: "01", title: "motion design", description: "Frame-by-frame craft: type in motion, 2D systems, 3D, broadcast packages and social cutdowns built from one master.", tags: ["2d", "3d", "broadcast"] },
+        { index: "02", title: "creative direction", description: "The idea before the frame. Concept, references, look, and the team to make it.", tags: ["concept", "art direction"] },
+        { index: "03", title: "production", description: "Full production house when you need one: crew, camera, location, edit, sound and grade.", tags: ["shoot", "edit", "grade"] },
+        { index: "04", title: "brand in motion", description: "Identity systems designed to move — logo behaviour, transitions, motion guidelines.", tags: ["identity", "guidelines"] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+:root{
+/* Motion-design house: easing is drawn, not bounced. */
+--ease-draw:cubic-bezier(.65,0,.35,1); /* @kind other *//* trim-path in/out, the signature */
+--ease-out:cubic-bezier(.16,1,.3,1); /* @kind other */
+--ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+--dur-instant:120ms; /* @kind other */
+--dur-fast:220ms; /* @kind other */
+--dur-base:400ms; /* @kind other */
+--dur-slow:800ms; /* @kind other */
+--dur-draw:2400ms; /* @kind other *//* full logo draw-on, matches the supplied .mp4 */
+--stagger:80ms; /* @kind other */
+}

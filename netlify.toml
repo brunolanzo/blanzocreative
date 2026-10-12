@@ -1,0 +1,8 @@
+# Hospedagem no Netlify (plano grátis). O adaptador de Next.js do Netlify é instalado sozinho.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
+  NEXT_TELEMETRY_DISABLED = "1"
