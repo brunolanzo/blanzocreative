@@ -33,9 +33,11 @@ No alto do painel há também as abas **Pré-visualizar** (o site ao lado do for
 
 ## Criar um projeto novo
 
+Primeira vez publicando um trabalho real? Siga o passo a passo com teste em **[publicar-um-trabalho.md](publicar-um-trabalho.md)**.
+
 1. **Projetos** → botão **+** (ou abra um projeto parecido, menu **⋯** → **Duplicar**: copia tudo menos o endereço).
 2. Aba **Conteúdo**:
-   - **Título** e **Endereço (slug)**: clique em **Generate** para criar o endereço a partir do título;
+   - **Título** e **Endereço (slug)**: clique em **Gerar** para criar o endereço a partir do título;
    - **Subtítulo**, **Cliente** (opcional; projeto autoral pode ficar sem), **Agência**, **Ano**, **Minha função**;
    - **Tags**: pelo menos uma. São elas que colocam o projeto no filtro certo;
    - **Descrição de abertura**: o texto que aparece logo abaixo da mídia de abertura.
@@ -131,7 +133,7 @@ O projeto **"Identidade em movimento"** usa todos os blocos: abra-o para ver um 
 
 ## Tags
 
-- **Tags** → **+**: nome, endereço (**Generate**) e uma descrição curta, que aparece quando a tag está ativa no filtro.
+- **Tags** → **+**: nome, endereço (**Gerar**) e uma descrição curta, que aparece quando a tag está ativa no filtro.
 - Uma tag só aparece no filtro quando pelo menos um projeto publicado usa ela.
 - A ordem da lista de tags é a ordem dos botões no site.
 

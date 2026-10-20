@@ -35,10 +35,10 @@ export const project = defineType({
       title: 'Endereço (slug)',
       type: 'slug',
       group: 'content',
-      description: 'Final do link do projeto: blanzo…/trabalhos/este-texto. Clique em "Generate" para criar a partir do título.',
+      description: 'Final do link do projeto: blanzo…/trabalhos/este-texto. Clique em "Gerar" para criar a partir do título.',
       options: { source: 'title', maxLength: 80 },
       validation: (rule) => [
-        rule.required().error('Gere o endereço do projeto (botão "Generate").'),
+        rule.required().error('Gere o endereço do projeto (botão "Gerar").'),
         rule.custom((value: { current?: string } | undefined) =>
           RESERVED_SLUGS.has(value?.current ?? '')
             ? `"${value?.current}" é usado pelo próprio site. Escolha outro endereço.`

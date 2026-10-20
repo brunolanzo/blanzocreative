@@ -6,6 +6,8 @@ No ar em **https://blanzocreative.netlify.app** (painel em https://blanzocreativ
 
 Tudo o que aparece no site se edita no painel: veja **[docs/como-usar-o-painel.md](docs/como-usar-o-painel.md)**.
 
+Para publicar um trabalho, com um teste antes de mostrar para todo mundo: **[docs/publicar-um-trabalho.md](docs/publicar-um-trabalho.md)**.
+
 Quanto custa e a partir de quando se paga: **[docs/custos.md](docs/custos.md)**.
 
 ---
