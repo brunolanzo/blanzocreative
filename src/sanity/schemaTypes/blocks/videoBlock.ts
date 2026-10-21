@@ -29,7 +29,8 @@ export const videoBlock = defineType({
       title: 'Mostrar controles completos',
       type: 'boolean',
       initialValue: false,
-      description: 'Barra com tempo, volume e tela cheia. Bom para vídeos longos, que a pessoa assiste do começo ao fim.',
+      description:
+        'Barra com tempo, volume e tela cheia. Com ela, o vídeo não toca sozinho: espera a pessoa dar o play, já com som. Bom para vídeos longos, que a pessoa assiste do começo ao fim.',
     }),
     defineField({ name: 'loop', title: 'Repetir (loop)', type: 'boolean', initialValue: true }),
     defineField({ name: 'options', title: 'Opções do bloco', type: 'blockOptions' }),

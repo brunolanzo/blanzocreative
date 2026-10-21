@@ -118,7 +118,7 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 ## Como ficou na Fase 3 (home e /trabalhos)
 
 - **Vídeo:** `LoopVideo` é um `<video>` nativo que só recebe o endereço quando vai tocar pela primeira vez (`preload="none"`).
-  - O HLS usa o suporte do próprio navegador (Safari) ou o `hls.js/light`, carregado sob demanda.
+  - O HLS usa o suporte do próprio navegador (Safari) ou o hls.js, carregado sob demanda. Era o `hls.js/light` até a Fase 7; ver a nota do Mux na seção da Fase 7.
   - O `@mux/mux-background-video` não foi usado: o vídeo nativo resolve sem nenhum KB a mais.
   - Do Mux, o MP4 é tentado primeiro e, se der erro, o HLS assume.
 - **Filtro de tags:**
@@ -284,6 +284,7 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 - **Commits só de documentação:** ponha `[skip netlify]` na mensagem para o Netlify não gerar deploy.
 - **Mux:** sem MP4 por padrão (adicional pago). `resolveVideo` só tenta o MP4 quando o asset tem o arquivo `highest.mp4` (`muxMp4` na consulta).
   - **HLS no Chrome (corrigido em 21/10/2026):** o Chrome recente responde "maybe" a `canPlayType('application/vnd.apple.mpegurl')`, mas não toca os vídeos do Mux (erro 4, "no supported sources"; testado no Chrome 155 e no navegador do app, Chrome 152). O `LoopVideo` confiava nessa resposta e tentava o HLS nativo. Agora o nativo fica só para o Safari (e navegadores sem MSE, como os do iPhone); no resto, o hls.js. Conferido: o vídeo do Mux toca no Chrome 155 a 720p.
+  - **Som no hls.js (corrigido em 21/10/2026):** o Mux manda o áudio numa faixa separada (`#EXT-X-MEDIA:TYPE=AUDIO`), e a versão `hls.js/light` não carrega faixas de áudio separadas. Resultado: vídeo mudo no Chrome, no Edge e no Firefox (0 bytes de áudio decodificados). O `LoopVideo` passou a usar o hls.js completo: 183 KB comprimidos contra 116 KB, baixados só quando um vídeo HLS vai tocar fora do Safari.
 - **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
 
 ## Fontes da pesquisa

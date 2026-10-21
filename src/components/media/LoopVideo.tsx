@@ -101,7 +101,8 @@ export function LoopVideo({
     hls.current = null
     loadPending.current = false
     if (target.kind === 'hls' && !supportsNativeHls(media)) {
-      const { default: Hls } = await import('hls.js/light')
+      // A versão completa, não a "light": o Mux manda o áudio numa faixa separada, que a light não carrega.
+      const { default: Hls } = await import('hls.js')
       // Saiu da página ou trocou de fonte enquanto a biblioteca carregava: não liga mais nada.
       if (!alive.current || generation.current !== current || element.current !== media) return
       if (Hls.isSupported()) {
