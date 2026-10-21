@@ -35,7 +35,14 @@ type LoopVideoProps = {
 
 type Attachment = 'none' | 'primary' | 'fallback'
 
-const supportsNativeHls = (media: HTMLVideoElement) => media.canPlayType('application/vnd.apple.mpegurl') !== ''
+/**
+ * HLS nativo só no Safari (inclusive os navegadores do iPhone, que são Safari por dentro) ou sem MSE.
+ * O Chrome recente responde "maybe" ao HLS, mas não toca os vídeos do Mux (erro 4, testado no 152 e no 155):
+ * fora do Safari, quem toca é o hls.js.
+ */
+const supportsNativeHls = (media: HTMLVideoElement) =>
+  media.canPlayType('application/vnd.apple.mpegurl') !== '' &&
+  (/^((?!chrome|chromium|android).)*safari/i.test(navigator.userAgent) || typeof MediaSource === 'undefined')
 
 /**
  * Vídeo nativo que só baixa quando precisa tocar pela primeira vez.

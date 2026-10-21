@@ -283,6 +283,7 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
   - Antes das correções, "Boas práticas" era 96 em todas as páginas (o erro #418). A acessibilidade 96 é o filtro ativo (branco sobre vermelho-rosado).
 - **Commits só de documentação:** ponha `[skip netlify]` na mensagem para o Netlify não gerar deploy.
 - **Mux:** sem MP4 por padrão (adicional pago). `resolveVideo` só tenta o MP4 quando o asset tem o arquivo `highest.mp4` (`muxMp4` na consulta).
+  - **HLS no Chrome (corrigido em 21/10/2026):** o Chrome recente responde "maybe" a `canPlayType('application/vnd.apple.mpegurl')`, mas não toca os vídeos do Mux (erro 4, "no supported sources"; testado no Chrome 155 e no navegador do app, Chrome 152). O `LoopVideo` confiava nessa resposta e tentava o HLS nativo. Agora o nativo fica só para o Safari (e navegadores sem MSE, como os do iPhone); no resto, o hls.js. Conferido: o vídeo do Mux toca no Chrome 155 a 720p.
 - **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
 
 ## Fontes da pesquisa
