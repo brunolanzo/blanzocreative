@@ -53,6 +53,15 @@ Primeira vez publicando um trabalho real? Siga o passo a passo com teste em **[p
 
 O projeto entra na lista na posição de cima. Arraste para a posição que quiser.
 
+## Excluir um projeto
+
+1. Abra o projeto → menu **⋯** ao lado de **Publicar** → **Excluir**.
+2. Confirme em **Excluir agora** (ou **Excluir todas as versões**, se houver um rascunho).
+
+- **Projeto nos destaques da home:** o painel avisa que "Configurações do site" se refere a ele, e a exclusão falha. Antes, tire-o de **Configurações do site → Home → Projetos em destaque** e clique em **Publicar**. Com a lista vazia, a home mostra os 8 primeiros projetos da lista **Projetos**.
+- **Para só tirar do site**, sem perder o conteúdo, use **Despublicar** no mesmo menu.
+- Depois de excluído, o projeto some do painel. O site atualiza em até um minuto, e o link dele passa a mostrar "página não encontrada".
+
 ## Thumb, preview e mídia de abertura
 
 - **Thumb do card** (obrigatória):

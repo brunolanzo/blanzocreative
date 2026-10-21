@@ -114,6 +114,6 @@ O site atualiza em até um minuto. Depois de despublicar ou excluir, o link most
 
 ## Depois do primeiro trabalho real
 
-- Os 12 projetos de exemplo continuam no site. Quando tiver os seus, exclua os exemplos.
+- Os 12 projetos de exemplo continuam no site. Quando tiver os seus, exclua os exemplos (veja "Excluir um projeto" no guia). Os que estão nos destaques da home só saem depois de tirados de **Projetos em destaque**.
 - Depois, exclua os clientes fictícios: Brisamar Cosméticos, Kairo Games, Nimbo Seguros, Ondina Bebidas, Pilar Banco Digital, Solano Energia, Tecelã Moda e Vetra Mobilidade. O painel só deixa excluir um cliente que não está em nenhum projeto, nem em rascunho.
 - Troque também o resto do conteúdo de exemplo: **Página Sobre**, **Página Contato** e, em **Configurações do site**, o e-mail, o WhatsApp e as redes.
