@@ -81,10 +81,24 @@ Mais dois campos em todo vídeo:
 - **Poster:** a imagem que aparece enquanto o vídeo carrega. Em **arquivo MP4 e link**, envie sempre: é ele que diz ao site o formato do vídeo (sem poster, o site usa 16:9). Exporte um quadro do próprio vídeo.
 - **Descrição do vídeo:** uma frase sobre o que acontece no vídeo, para leitores de tela.
 
-**Primeira vez com o Mux:**
-1. O painel pede um token do Mux.
-2. No site do Mux, vá em **Settings → Access Tokens** e crie um token com permissão **Mux Video: Read e Write**.
-3. Cole o **Token ID** e o **Token Secret** no painel.
+**Primeira vez com o Mux** (uma vez só):
+
+1. Em [dashboard.mux.com/settings/access-tokens](https://dashboard.mux.com/settings/access-tokens), gere um token novo:
+   - **Environment:** o que vier selecionado (os vídeos ficam nesse ambiente);
+   - **permissões:** **Mux Video** com leitura e escrita (Read e Write) e **Mux Data** só leitura (Read). **System** não precisa;
+   - um nome que lembre o uso, como "Sanity - site Blanzo".
+2. O Mux mostra o **Access Token ID** e a **Secret Key**. A Secret Key aparece uma vez só: deixe a página aberta até terminar o passo 4. Se perder, crie outro token.
+3. No painel, abra a aba **Vídeos (Mux)** e clique no botão com ícone de tomada (**Configure plugin credentials**), que fica vermelho enquanto o Mux não está ligado. Dentro de um campo de vídeo, o mesmo botão se chama **Configure API**.
+4. Cole o Access Token ID em **Access Token** e a Secret Key em **Secret Key**. Deixe **Enable Signed Urls** desmarcado e clique em **Save**.
+5. Teste com um vídeo curto: em um campo de vídeo, escolha **Upload no Mux** e envie o arquivo. Espere o painel terminar de processar (aparece a imagem do vídeo) antes de publicar.
+
+O token fica guardado num documento privado do Sanity, que só quem edita o painel consegue ver. Não mande o token por mensagem nem e-mail.
+
+Cada vídeo enviado conta no limite de 10 do plano grátis do Mux, inclusive os de teste. Para apagar um que não vai usar:
+
+- na aba **Vídeos (Mux)**, abra o vídeo → **Delete video**;
+- deixe marcado **Delete asset on Mux**: é isso que libera a vaga no Mux;
+- vídeo que ainda está em algum projeto ou configuração não pode ser apagado. Tire-o de lá antes.
 
 ## Fotos e GIFs
 
