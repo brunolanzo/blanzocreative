@@ -236,11 +236,13 @@ async function main() {
   process.stdout.write('Enviando mídias ')
   const documents: Array<{ _id: string; _type: string; [key: string]: unknown }> = []
 
-  // Tags
+  const tagId = (slug: string) => `tag-${TAGS.find((tag) => tag.slug === slug)?.id ?? slug}`
+
+  // Tags (o _id usa o id estável, igual ao do site; o endereço é o slug em inglês)
   const tagRanks = ranks(TAGS.length)
   TAGS.forEach((tag, index) => {
     documents.push({
-      _id: `tag-${tag.slug}`,
+      _id: `tag-${tag.id}`,
       _type: 'tag',
       name: tag.name,
       slug: { _type: 'slug', current: tag.slug },
@@ -268,7 +270,7 @@ async function main() {
   for (const [index, project] of PROJECTS.entries()) {
     const thumbnail = project.thumbnail
       ? await media(project.thumbnail)
-      : await media({ kind: 'image', key: `thumb-${project.slug}`, alt: `Thumb do projeto ${project.title}` })
+      : await media({ kind: 'image', key: `thumb-${project.slug}`, alt: `Thumbnail for ${project.title}` })
     const body = []
     for (const [blockIndex, spec] of project.body.entries()) {
       body.push(await block(spec, `b${blockIndex + 1}`))
@@ -283,11 +285,11 @@ async function main() {
       ...(project.agency ? { agency: project.agency } : {}),
       year: project.year,
       role: project.role,
-      tags: keyed(project.tags.map((slug) => ref(`tag-${slug}`)), 't'),
+      tags: keyed(project.tags.map((slug) => ref(tagId(slug))), 't'),
       intro: richText(project.intro, 'i'),
       heroMedia: await media(project.hero),
       thumbnail,
-      ...(project.preview ? { previewVideo: await videoSource(project.preview, `Preview de ${project.title}`) } : {}),
+      ...(project.preview ? { previewVideo: await videoSource(project.preview, `Preview of ${project.title}`) } : {}),
       body,
       credits: credits(project.credits, 'c'),
       visibility: 'listed',
@@ -300,10 +302,10 @@ async function main() {
     _id: 'aboutPage',
     _type: 'aboutPage',
     title: ABOUT.title,
-    media: await media({ kind: 'image', key: 'about-portrait', alt: 'Retrato (foto provisória)' }),
+    media: await media({ kind: 'image', key: 'about-portrait', alt: 'Portrait (placeholder photo)' }),
     bio: richText(ABOUT.bio, 'bio'),
     disciplines: keyed(
-      ABOUT.disciplines.map((item) => ({ _type: 'discipline', label: item.label, tag: ref(`tag-${item.tag}`) })),
+      ABOUT.disciplines.map((item) => ({ _type: 'discipline', label: item.label, tag: ref(tagId(item.tag)) })),
       'd',
     ),
     timeline: keyed(ABOUT.timeline.map((item) => ({ _type: 'role', ...item })), 'r'),
@@ -339,7 +341,7 @@ async function main() {
     },
     favicon: { _type: 'image', asset: ref(favicon) },
     reel: {
-      loop: await videoSource('reel-loop', 'Demo reel (vídeo provisório)'),
+      loop: await videoSource('reel-loop', 'Demo reel (placeholder video)'),
       poster: { _type: 'image', asset: ref(await uploadPlaceholder('reel-poster')) },
       phrase: SETTINGS.reelPhrase,
     },
@@ -348,7 +350,7 @@ async function main() {
     sections: { clients: true, about: true, contact: true },
     workPage: { title: SETTINGS.workTitle, intro: SETTINGS.workIntro },
     aboutSummary: {
-      media: await media({ kind: 'image', key: 'about-portrait', alt: 'Retrato (foto provisória)' }),
+      media: await media({ kind: 'image', key: 'about-portrait', alt: 'Portrait (placeholder photo)' }),
       text: SETTINGS.aboutSummary,
     },
     email: SETTINGS.email,

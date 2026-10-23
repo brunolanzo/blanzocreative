@@ -98,7 +98,7 @@ async function writeGif(name, { width, height, frames = 16 }) {
   for (let i = 0; i < frames; i += 1) {
     const angle = (i / frames) * Math.PI * 2
     const dot = { x: width * (0.62 + 0.18 * Math.cos(angle)), y: height * (0.5 + 0.22 * Math.sin(angle)) }
-    const svg = placeholderSvg({ width, height, ratio: '4:3', label: 'gif animado', title: 'gif em loop', dot })
+    const svg = placeholderSvg({ width, height, ratio: '4:3', label: 'animated gif', title: 'gif loop', dot })
     images.push(await sharp(Buffer.from(svg)).png().toBuffer())
   }
   const file = path.join(OUT_DIR, `${name}.gif`)
@@ -169,37 +169,37 @@ async function writeVideo(name, { width, height, seconds, period, ratio, label, 
   return file
 }
 
-/** Lista de todas as mídias provisórias. Os nomes são usados pelo seed. */
+/** Lista de todas as mídias provisórias. Os nomes são usados pelo seed. Os textos desenhados nelas são em inglês, como o site. */
 export const IMAGES = {
-  'reel-poster': { width: 2400, height: 1350, ratio: '16:9', label: 'poster do reel', title: 'demo reel' },
-  'img-16x9': { width: 2400, height: 1350, ratio: '16:9', label: 'imagem ponta a ponta' },
-  'img-21x9': { width: 2520, height: 1080, ratio: '21:9', label: 'imagem cinema' },
-  'img-3x2': { width: 1800, height: 1200, ratio: '3:2', label: 'imagem' },
-  'img-4x3': { width: 1600, height: 1200, ratio: '4:3', label: 'imagem', background: INK_800 },
-  'img-1x1-a': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaico', title: '01' },
-  'img-1x1-b': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaico', title: '02', background: INK_800 },
-  'img-1x1-c': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaico', title: '03', background: INK_700 },
+  'reel-poster': { width: 2400, height: 1350, ratio: '16:9', label: 'reel poster', title: 'demo reel' },
+  'img-16x9': { width: 2400, height: 1350, ratio: '16:9', label: 'full-bleed image' },
+  'img-21x9': { width: 2520, height: 1080, ratio: '21:9', label: 'cinema image' },
+  'img-3x2': { width: 1800, height: 1200, ratio: '3:2', label: 'image' },
+  'img-4x3': { width: 1600, height: 1200, ratio: '4:3', label: 'image', background: INK_800 },
+  'img-1x1-a': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaic', title: '01' },
+  'img-1x1-b': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaic', title: '02', background: INK_800 },
+  'img-1x1-c': { width: 1200, height: 1200, ratio: '1:1', label: 'mosaic', title: '03', background: INK_700 },
   'img-4x5-a': { width: 1200, height: 1500, ratio: '4:5', label: 'vertical', title: '01' },
   'img-4x5-b': { width: 1200, height: 1500, ratio: '4:5', label: 'vertical', title: '02', background: INK_800 },
   'img-4x5-c': { width: 1200, height: 1500, ratio: '4:5', label: 'vertical', title: '03', background: INK_700 },
   'img-9x16': { width: 1080, height: 1920, ratio: '9:16', label: 'stories' },
-  'img-before': { width: 1600, height: 1000, ratio: 'antes', label: 'antes e depois', background: INK_800 },
-  'img-after': { width: 1600, height: 1000, ratio: 'depois', label: 'antes e depois', background: INK_700 },
-  'about-portrait': { width: 1200, height: 1500, ratio: '4:5', label: 'foto do sobre', title: 'retrato' },
-  'share-default': { width: 1200, height: 630, ratio: '1200×630', label: 'imagem de compartilhamento', title: 'blanzo creative studio' },
+  'img-before': { width: 1600, height: 1000, ratio: 'before', label: 'before and after', background: INK_800 },
+  'img-after': { width: 1600, height: 1000, ratio: 'after', label: 'before and after', background: INK_700 },
+  'about-portrait': { width: 1200, height: 1500, ratio: '4:5', label: 'about photo', title: 'portrait' },
+  'share-default': { width: 1200, height: 630, ratio: '1200×630', label: 'share image', title: 'blanzo creative studio' },
 }
 
 export const VIDEOS = {
-  'reel-loop': { width: 1280, height: 720, seconds: 10, period: 5, ratio: '16:9', label: 'reel em loop', note: '1280 × 720 · com som para testar o botão', sound: true },
-  'video-16x9': { width: 1280, height: 720, seconds: 6, period: 3, ratio: '16:9', label: 'vídeo', note: '1280 × 720 · com som', sound: true },
-  'video-1x1': { width: 1080, height: 1080, seconds: 6, period: 3, ratio: '1:1', label: 'vídeo em loop', note: '1080 × 1080 · sem som' },
-  'video-9x16': { width: 720, height: 1280, seconds: 6, period: 3, ratio: '9:16', label: 'vídeo vertical', note: '720 × 1280 · sem som' },
-  'preview-3x2': { width: 1200, height: 800, seconds: 6, period: 3, ratio: '3:2', label: 'preview do card', note: 'loop curto, sem som' },
+  'reel-loop': { width: 1280, height: 720, seconds: 10, period: 5, ratio: '16:9', label: 'reel loop', note: '1280 × 720 · with sound, to test the button', sound: true },
+  'video-16x9': { width: 1280, height: 720, seconds: 6, period: 3, ratio: '16:9', label: 'video', note: '1280 × 720 · with sound', sound: true },
+  'video-1x1': { width: 1080, height: 1080, seconds: 6, period: 3, ratio: '1:1', label: 'video loop', note: '1080 × 1080 · no sound' },
+  'video-9x16': { width: 720, height: 1280, seconds: 6, period: 3, ratio: '9:16', label: 'vertical video', note: '720 × 1280 · no sound' },
+  'preview-3x2': { width: 1200, height: 800, seconds: 6, period: 3, ratio: '3:2', label: 'card preview', note: 'short loop, no sound' },
 }
 
 /** Thumb 3:2 de um projeto, com o título escrito. */
 export function projectThumb(slug, title) {
-  return [`thumb-${slug}`, { width: 1800, height: 1200, ratio: '3:2', label: 'thumb do card', title }]
+  return [`thumb-${slug}`, { width: 1800, height: 1200, ratio: '3:2', label: 'card thumbnail', title }]
 }
 
 export async function generateAll(projects = []) {
