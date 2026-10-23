@@ -261,6 +261,7 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 - **O que o Netlify injeta no HTML** (fora do nosso código):
   - um comentário de propaganda no `<head>`, logo depois do `<meta charset>`, precedido de quebra de linha;
   - o script `/.netlify/scripts/hud` depois do `</html>`, que desenha o selo "Powered by Netlify" no canto inferior direito. O selo vem ligado em projetos Free criados desde 19/08/2026 e se desliga em **Project configuration → General → Powered by Netlify badge**, sem novo deploy.
+  - **Desligado em 23/10/2026**, a pedido do usuário: o selo cobria o "Publicar" e o menu "⋯" do painel em `/admin`. Depois disso, o script não aparece mais em nenhuma página.
 - **Erro de hidratação (#418) causado pelo comentário:**
   - A quebra de linha vira um nó de texto no `<head>`. O React 19 hidrata pela posição os filhos do `<head>` que não são "hoistable", e o nosso `<script>` da intro era um deles. Ao achar texto onde esperava elemento, o React descartava o HTML do servidor e refazia a página inteira no navegador.
   - Provado nos dois sentidos: tirar o comentário do HTML publicado zera o erro, e pôr um comentário igual no build local o reproduz. O script do selo não interfere.
