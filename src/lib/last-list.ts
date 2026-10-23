@@ -6,16 +6,16 @@ const KEY = 'blanzo:last-list'
 
 export function rememberList(tag: string | null) {
   try {
-    sessionStorage.setItem(KEY, tag ? `/trabalhos?tag=${encodeURIComponent(tag)}` : '/trabalhos')
+    sessionStorage.setItem(KEY, tag ? `/work?tag=${encodeURIComponent(tag)}` : '/work')
   } catch {
-    // Sem sessionStorage (modo privado restrito): o botão volta para /trabalhos.
+    // Sem sessionStorage (modo privado restrito): o botão volta para /work.
   }
 }
 
 export function lastListUrl(): string {
   try {
-    return sessionStorage.getItem(KEY) ?? '/trabalhos'
+    return sessionStorage.getItem(KEY) ?? '/work'
   } catch {
-    return '/trabalhos'
+    return '/work'
   }
 }

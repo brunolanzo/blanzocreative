@@ -4,7 +4,7 @@ import { getSettings } from '@/sanity/lib/settings'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { ui } = await getSettings()
-  return { title: ui.navWork, alternates: { canonical: '/trabalhos' } }
+  return { title: ui.navWork, alternates: { canonical: '/work' } }
 }
 
 export default function WorkPage() {

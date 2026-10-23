@@ -11,8 +11,8 @@ const logoKindIs =
     !kinds.includes((parent as LogoValue | undefined)?.kind ?? 'image')
 
 const uiStringFields = UI_STRING_GROUPS.flatMap((group) =>
-  Object.entries(group.strings).map(([name, text]) =>
-    defineField({ name, title: text, type: 'string', initialValue: text, fieldset: group.name }),
+  Object.entries(group.strings).map(([name, { label, text }]) =>
+    defineField({ name, title: label, description: `Padrão: ${text}`, type: 'string', initialValue: text, fieldset: group.name }),
   ),
 )
 
@@ -239,7 +239,7 @@ export const siteSettings = defineType({
       title: 'Página Trabalhos',
       type: 'object',
       group: 'work',
-      description: 'Topo da página /trabalhos. Os projetos aparecem na ordem da lista "Projetos".',
+      description: 'Topo da página /work. Os projetos aparecem na ordem da lista "Projetos".',
       fields: [
         defineField({
           name: 'title',
@@ -398,7 +398,7 @@ export const siteSettings = defineType({
       type: 'object',
       group: 'texts',
       description:
-        'Todos os textos fixos de botões e rótulos. O nome de cada campo é o texto original; mude o valor para trocar no site.',
+        'Todos os textos fixos de botões e rótulos, em inglês (o site é só em inglês). O nome de cada campo diz onde o texto aparece; mude o valor para trocar no site.',
       fieldsets: UI_STRING_GROUPS.map((group) => ({
         name: group.name,
         title: group.title,

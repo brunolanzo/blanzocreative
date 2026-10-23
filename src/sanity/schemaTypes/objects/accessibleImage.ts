@@ -18,7 +18,7 @@ export const accessibleImage = defineType({
       title: 'Texto alternativo',
       type: 'string',
       description:
-        'Descreva o que aparece, em uma frase. Serve para quem usa leitor de tela e para o Google. Ex.: "Modelo em contraluz segurando a lata, fundo preto".',
+        'Descreva o que aparece, em uma frase em inglês. Serve para quem usa leitor de tela e para o Google. Ex.: "Backlit model holding the can, black background".',
       validation: (rule) =>
         rule.required().error('Escreva o texto alternativo: ele descreve a imagem para quem não consegue vê-la.'),
     }),

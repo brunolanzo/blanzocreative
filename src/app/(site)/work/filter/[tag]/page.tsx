@@ -8,7 +8,7 @@ import { TAG_SLUGS_QUERY } from '@/sanity/lib/queries'
 import { getSettings } from '@/sanity/lib/settings'
 
 /**
- * /trabalhos?tag=ia é servido por esta página (regra de rewrite em next.config.ts):
+ * /work?tag=ia é servido por esta página (regra de rewrite em next.config.ts):
  * a URL continua com ?tag=, mas o HTML já sai filtrado e pronto do cache.
  */
 type Props = { params: Promise<{ tag: string }> }
@@ -25,13 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // stegaClean: na pré-visualização, tira a marcação invisível do "clique para editar".
     title: stegaClean(workTitle(ui.navWork, current?.name)),
     description: current?.description ? stegaClean(current.description) : undefined,
-    alternates: { canonical: `/trabalhos?tag=${tag}` },
+    alternates: { canonical: `/work?tag=${tag}` },
   }
 }
 
 export default async function FilteredWorkPage({ params }: Props) {
   const [{ tag }, data] = await Promise.all([params, getWorkData()])
   // Tag que não existe mais (ou sem projetos publicados): mostra todos os trabalhos.
-  if (!data.tags.some((item) => item.slug === tag)) redirect('/trabalhos')
+  if (!data.tags.some((item) => item.slug === tag)) redirect('/work')
   return <WorkIndex tag={tag} />
 }

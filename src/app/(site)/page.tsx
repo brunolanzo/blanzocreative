@@ -60,7 +60,7 @@ export default async function HomePage() {
 
       <HomeHero reel={home?.reel ?? null} siteName={siteName} ui={ui} />
 
-      <section id="trabalhos" className="container-site py-section">
+      <section id="work" className="container-site py-section">
         <Eyebrow index={sectionNumber(1)} as="h2" className="mb-32">
           {ui.sectionWork}
         </Eyebrow>

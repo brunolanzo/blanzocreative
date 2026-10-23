@@ -25,10 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical: '/sobre' },
+    alternates: { canonical: '/about' },
     openGraph: {
       type: 'profile',
-      locale: 'pt_BR',
+      locale: 'en_US',
       siteName,
       title,
       description,
@@ -70,7 +70,7 @@ export default async function AboutPage() {
               <ul className="flex flex-wrap gap-8">
                 {disciplines.map((discipline) => (
                   <li key={discipline._key}>
-                    <Tag href={discipline.tag ? `/trabalhos?tag=${discipline.tag}` : undefined}>{discipline.label}</Tag>
+                    <Tag href={discipline.tag ? `/work?tag=${discipline.tag}` : undefined}>{discipline.label}</Tag>
                   </li>
                 ))}
               </ul>

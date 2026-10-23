@@ -61,10 +61,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical: `/trabalhos/${slug}` },
+    alternates: { canonical: `/work/${slug}` },
     openGraph: {
       type: 'article',
-      locale: 'pt_BR',
+      locale: 'en_US',
       siteName,
       title,
       description,
@@ -92,7 +92,7 @@ export default async function ProjectPage({ params }: Props) {
     '@type': 'CreativeWork',
     name: project.title,
     description: (project.seo?.description || intro).slice(0, 300) || undefined,
-    url: `${SITE_URL}/trabalhos/${slug}`,
+    url: `${SITE_URL}/work/${slug}`,
     image: project.shareImage ?? undefined,
     dateCreated: project.year ? String(project.year) : undefined,
     keywords: tags.map((tag) => tag.name).join(', ') || undefined,
@@ -141,7 +141,7 @@ export default async function ProjectPage({ params }: Props) {
               <ul className="flex flex-wrap gap-8 md:col-span-8 md:col-start-5">
                 {tags.map((tag) => (
                   <li key={tag._id}>
-                    <Tag href={`/trabalhos?tag=${tag.slug}`}>{tag.name}</Tag>
+                    <Tag href={`/work?tag=${tag.slug}`}>{tag.name}</Tag>
                   </li>
                 ))}
               </ul>

@@ -37,7 +37,7 @@ const MEDIA = `
   video{ ${VIDEO} }
 `
 
-/** Dados de um card de projeto (grids da home e de /trabalhos). */
+/** Dados de um card de projeto (grids da home e de /work). */
 const PROJECT_CARD = `
   _id,
   title,

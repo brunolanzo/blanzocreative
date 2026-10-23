@@ -7,8 +7,8 @@ import { mediaImageQuality } from '../shared/validation'
 
 const currentYear = new Date().getFullYear()
 
-/** Endereços usados pelas rotas do site (/trabalhos/filtro/…). */
-const RESERVED_SLUGS = new Set(['filtro'])
+/** Endereços usados pelas rotas do site (/work/filter/…). */
+const RESERVED_SLUGS = new Set(['filter'])
 
 export const project = defineType({
   name: 'project',
@@ -35,7 +35,7 @@ export const project = defineType({
       title: 'Endereço (slug)',
       type: 'slug',
       group: 'content',
-      description: 'Final do link do projeto: blanzo…/trabalhos/este-texto. Clique em "Gerar" para criar a partir do título.',
+      description: 'Final do link do projeto: blanzo…/work/este-texto. Clique em "Gerar" para criar a partir do título.',
       options: { source: 'title', maxLength: 80 },
       validation: (rule) => [
         rule.required().error('Gere o endereço do projeto (botão "Gerar").'),
@@ -68,7 +68,7 @@ export const project = defineType({
       title: 'Minha função no projeto',
       type: 'string',
       group: 'content',
-      description: 'Ex.: Direção criativa e motion design.',
+      description: 'Ex.: Creative direction and motion design.',
     }),
     defineField({
       name: 'tags',
@@ -87,7 +87,7 @@ export const project = defineType({
       type: 'media',
       group: 'media',
       description:
-        'Aparece nos grids (home e /trabalhos). Imagem, GIF ou vídeo curto em loop (sem som). Proporção 3:2, pelo menos 1800 × 1200 px.',
+        'Aparece nos grids (home e /work). Imagem, GIF ou vídeo curto em loop (sem som). Proporção 3:2, pelo menos 1800 × 1200 px.',
       validation: (rule) => [
         rule.required().error('A thumb é obrigatória: sem ela o projeto não aparece bem nos grids.'),
         rule.custom(mediaImageQuality(1800)).warning(),

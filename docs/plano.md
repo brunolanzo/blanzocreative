@@ -7,6 +7,7 @@
 **Fase 5: Sobre, Contato, logo e cursor.** Aprovada em 11/10/2026.
 **Fase 6: polimento (movimento, desempenho, SEO).** Aprovada em 12/10/2026, com o texto pequeno trocando o cinza apagado pelo cinza secundário do DS.
 **Fase 7: deploy e documentação.** Entregue em 12/10/2026, aguardando aprovação. No ar em https://blanzocreative.netlify.app.
+**Fase 8: site em inglês.** Entregue em 23/10/2026, aguardando aprovação. A pedido do usuário (foco no público global): o site é só em inglês, com endereços `/work`, `/about` e `/contact` (os antigos redirecionam). O painel e a documentação seguem em português.
 
 Documentos desta fase:
 - `docs/referencia-buff.md`: análise da estrutura, do layout e do movimento do buffmotion.com.

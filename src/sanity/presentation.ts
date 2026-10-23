@@ -7,18 +7,18 @@ import { defineDocuments, defineLocations, type PresentationPluginOptions } from
 export const resolve: PresentationPluginOptions['resolve'] = {
   mainDocuments: defineDocuments([
     { route: '/', filter: '_id == "siteSettings"' },
-    { route: '/trabalhos', filter: '_id == "siteSettings"' },
-    { route: '/trabalhos/:slug', filter: '_type == "project" && slug.current == $slug' },
-    { route: '/sobre', filter: '_id == "aboutPage"' },
-    { route: '/contato', filter: '_id == "contactPage"' },
+    { route: '/work', filter: '_id == "siteSettings"' },
+    { route: '/work/:slug', filter: '_type == "project" && slug.current == $slug' },
+    { route: '/about', filter: '_id == "aboutPage"' },
+    { route: '/contact', filter: '_id == "contactPage"' },
   ]),
   locations: {
     project: defineLocations({
       select: { title: 'title', slug: 'slug.current' },
       resolve: (doc) => ({
         locations: [
-          ...(doc?.slug ? [{ title: doc.title || 'Projeto', href: `/trabalhos/${doc.slug}` }] : []),
-          { title: 'Trabalhos', href: '/trabalhos' },
+          ...(doc?.slug ? [{ title: doc.title || 'Projeto', href: `/work/${doc.slug}` }] : []),
+          { title: 'Trabalhos', href: '/work' },
           { title: 'Início', href: '/' },
         ],
       }),
@@ -27,7 +27,7 @@ export const resolve: PresentationPluginOptions['resolve'] = {
       select: { name: 'name', slug: 'slug.current' },
       resolve: (doc) => ({
         locations: [
-          ...(doc?.slug ? [{ title: `Trabalhos: ${doc.name || 'tag'}`, href: `/trabalhos?tag=${doc.slug}` }] : []),
+          ...(doc?.slug ? [{ title: `Trabalhos: ${doc.name || 'tag'}`, href: `/work?tag=${doc.slug}` }] : []),
           { title: 'Início', href: '/' },
         ],
       }),
@@ -36,15 +36,15 @@ export const resolve: PresentationPluginOptions['resolve'] = {
     siteSettings: defineLocations({
       locations: [
         { title: 'Início', href: '/' },
-        { title: 'Trabalhos', href: '/trabalhos' },
+        { title: 'Trabalhos', href: '/work' },
       ],
     }),
     aboutPage: defineLocations({
       locations: [
-        { title: 'Sobre', href: '/sobre' },
+        { title: 'Sobre', href: '/about' },
         { title: 'Início', href: '/' },
       ],
     }),
-    contactPage: defineLocations({ locations: [{ title: 'Contato', href: '/contato' }] }),
+    contactPage: defineLocations({ locations: [{ title: 'Contato', href: '/contact' }] }),
   },
 }

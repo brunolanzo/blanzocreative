@@ -17,7 +17,7 @@ export const aboutPage = defineType({
       title: 'Título da página',
       type: 'string',
       group: 'content',
-      description: 'Aparece grande, em minúsculas, no topo. Ex.: "um generalista, de propósito".',
+      description: 'Aparece grande, em minúsculas, no topo. Ex.: "a generalist, on purpose".',
     }),
     defineField({ name: 'media', title: 'Foto ou vídeo', type: 'media', group: 'content' }),
     defineField({ name: 'bio', title: 'Bio', type: 'richText', group: 'content' }),
@@ -54,7 +54,7 @@ export const aboutPage = defineType({
           fields: [
             defineField({ name: 'company', title: 'Empresa', type: 'string', validation: (rule) => rule.required() }),
             defineField({ name: 'position', title: 'Função', type: 'string' }),
-            defineField({ name: 'period', title: 'Período', type: 'string', description: 'Ex.: 2021 — 2023, ou 2024 — hoje.' }),
+            defineField({ name: 'period', title: 'Período', type: 'string', description: 'Ex.: 2021 — 2023, ou 2024 — present.' }),
           ],
           preview: {
             select: { company: 'company', position: 'position', period: 'period' },

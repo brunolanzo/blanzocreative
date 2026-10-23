@@ -13,7 +13,7 @@ export function NextProject({ project, ui }: { project: ProjectCardData; ui: Pic
   const poster = thumbnail?.kind === 'video' ? videoPoster(thumbnail.video, 1600) : undefined
   return (
     <Reveal as="section" className="container-site border-t border-hairline py-section">
-      <AppLink href={`/trabalhos/${project.slug}`} className="group grid items-center gap-32 md:grid-cols-12 md:gap-x-32">
+      <AppLink href={`/work/${project.slug}`} className="group grid items-center gap-32 md:grid-cols-12 md:gap-x-32">
         <div className="flex flex-col items-start gap-16 md:col-span-5">
           <Eyebrow>{ui.nextProject}</Eyebrow>
           <Display as="p" size="m" className="transition-colors duration-220 ease-out group-hover:text-flash-500">

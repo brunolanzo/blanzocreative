@@ -44,7 +44,7 @@ export function AboutSummary({ index, label, linkLabel, title, text, media, disc
                 (item) =>
                   item.label && (
                     <li key={item._key}>
-                      <Tag size="sm" href={item.tag ? `/trabalhos?tag=${item.tag}` : undefined}>
+                      <Tag size="sm" href={item.tag ? `/work?tag=${item.tag}` : undefined}>
                         {item.label}
                       </Tag>
                     </li>
@@ -53,7 +53,7 @@ export function AboutSummary({ index, label, linkLabel, title, text, media, disc
             </ul>
           )}
           <div>
-            <Button href="/sobre" variant="ghost" className="-ml-[26px]">
+            <Button href="/about" variant="ghost" className="-ml-[26px]">
               {linkLabel} →
             </Button>
           </div>

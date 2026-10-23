@@ -6,6 +6,8 @@ Enquanto estiver não listado, o projeto **não aparece** nos grids, na home, no
 
 Os detalhes de cada campo e os tamanhos de arquivo estão em [como-usar-o-painel.md](como-usar-o-painel.md).
 
+O site é só em inglês: escreva os textos do projeto em inglês, com os nomes próprios (campanha, cliente) como são.
+
 ---
 
 ## 1. Separe o material
@@ -72,7 +74,7 @@ O painel guarda tudo sozinho como **rascunho**. Ninguém vê o rascunho.
 ## 5. Confira antes de publicar (opcional)
 
 1. Abra a aba **Pré-visualizar**, no alto do painel.
-2. Na barra de endereço da pré-visualização, digite `/trabalhos/` seguido do endereço do projeto.
+2. Na barra de endereço da pré-visualização, digite `/work/` seguido do endereço do projeto.
 3. A página aparece com o rascunho. Clique num texto para abrir o campo dele.
 
 Se a pré-visualização não abrir, siga em frente: o passo 6 é o teste de verdade.
@@ -82,11 +84,11 @@ Se a pré-visualização não abrir, siga em frente: o passo 6 é o teste de ver
 1. Clique em **Publicar** (o botão verde, embaixo à direita).
    - Se o painel não deixar, ele mostra em vermelho o que falta. Em geral é o título, o endereço, o ano, uma tag, a thumb, o texto alternativo de alguma imagem ou uma mídia vazia num bloco.
    - Os avisos em amarelo (imagem pequena, sem mídia de abertura) não impedem a publicação. Corrija se puder.
-2. Espere alguns segundos e abra `https://blanzocreative.netlify.app/trabalhos/` com o endereço do projeto no final.
+2. Espere alguns segundos e abra `https://blanzocreative.netlify.app/work/` com o endereço do projeto no final.
 3. Confira no computador e no celular:
    - textos e créditos;
-   - imagens e vídeos. Abrindo o link direto, o vídeo começa sem som (regra dos navegadores). Para ver com som, chegue pelo site: clique no card do projeto em `/trabalhos`;
-   - o botão "Ativar som";
+   - imagens e vídeos. Abrindo o link direto, o vídeo começa sem som (regra dos navegadores). Para ver com som, chegue pelo site: clique no card do projeto em `/work`;
+   - o botão "Sound on" (ativar som);
    - o "próximo projeto" no fim da página.
 4. Para ajustar, mude no painel e clique em **Publicar** de novo. A página atualiza em até um minuto. Se não atualizar, recarregue com **Cmd+Shift+R**.
 
@@ -95,7 +97,7 @@ Quem tiver o link vê a página. Dá para mandar ao cliente antes de anunciar.
 ## 7. Mostre para todo mundo
 
 1. Aba **Publicação e SEO** → **Visibilidade** → **Publicado: aparece nos grids do site** → **Publicar**.
-2. O projeto entra no topo de `/trabalhos` e no filtro das tags dele. Para mudar a posição, arraste-o na lista **Projetos**.
+2. O projeto entra no topo de `/work` e no filtro das tags dele. Para mudar a posição, arraste-o na lista **Projetos**.
 3. Se você desmarcou o cliente no passo 3: abra o cliente, marque **"Mostrar na faixa de clientes da home"** e clique em **Publicar**.
 4. **Na home (opcional):**
    - vá em **Configurações do site → Home → Projetos em destaque**;

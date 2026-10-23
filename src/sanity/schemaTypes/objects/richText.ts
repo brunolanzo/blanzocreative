@@ -33,7 +33,7 @@ export const richText = defineType({
                 name: 'href',
                 title: 'Endereço',
                 type: 'url',
-                description: 'Link completo (https://…), e-mail (mailto:…) ou página do site (/trabalhos).',
+                description: 'Link completo (https://…), e-mail (mailto:…) ou página do site (/work).',
                 validation: (rule) =>
                   rule.required().uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }),
               }),

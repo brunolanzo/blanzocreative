@@ -295,6 +295,22 @@ Pesquisa feita em 04/10/2026 (npm, documentação oficial e changelogs). Arquivo
 - **`useInView` e o `threshold` (corrigido em 23/10/2026):** o `isIntersecting` já é true com 1px na tela, então a fração pedida era ignorada (o vídeo tocava com 1px visível e só pausava quando saía inteiro). Agora o hook também confere o `intersectionRatio`. Afeta o reel da home (15%) e os vídeos de projeto.
 - **Custos:** pesquisa nas páginas oficiais em 12/10/2026, em `docs/custos.md`.
 
+## Site em inglês (Fase 8, 23/10/2026)
+
+A pedido do usuário, o site público passou a ser só em inglês. O painel (Studio, `lang="pt-BR"`), a documentação e as mensagens internas das rotas de API seguem em português.
+
+- **Endereços:** `/trabalhos` → `/work`, `/trabalhos/<slug>` → `/work/<slug>`, `/trabalhos/filtro/[tag]` → `/work/filter/[tag]`, `/sobre` → `/about`, `/contato` → `/contact`.
+  - Os antigos redirecionam com 308 (`redirects()` em `next.config.ts`); a query `?tag=` passa adiante. Tag antiga que não existe mais cai em `/work`.
+  - O endereço reservado para projeto passou de `filtro` para `filter`. Seções e notas acima com `/trabalhos` descrevem o site antes desta mudança.
+- **Idioma:** `<html lang="en">` no site e na 404; `og:locale` `en_US`.
+- **Textos da interface** (`src/lib/ui-strings.ts`): cada um virou `{ label, text }`. O `label` em português é o nome do campo no painel (diz onde o texto aparece); o `text` em inglês é o padrão e o valor inicial. O painel mostra "Padrão: …" em cada campo.
+  - Copy tirada do próprio DS sempre que existia: "one mind, whole production", "a generalist, on purpose", "tell me what it should feel like", "let’s make it move", "Nothing under that filter yet.", "Send it", "Send another", "The brief", "All projects →".
+- **Conteúdo traduzido no Sanity** (patches por caminho, com `ifRevisionID`): Configurações (60 textos da interface, SEO, frase do reel, chamada, página de trabalhos, cursor), Sobre, Contato, as 8 tags (nome, descrição e endereço: `ai`, `creative-direction`, `advertising`, `art-direction`, `photography`, `3d-animation`, `video-production`; `motion-design` igual) e, no projeto Aura, a descrição de abertura, a função, um crédito e o texto alternativo da thumb.
+  - Ficaram como estavam os nomes próprios: o título da campanha "Aura Irreproduzível" (o jogo de palavras a.ura i.rreproduzível só funciona em português), nomes de clientes e de pessoas.
+  - Cópia do conteúdo em português antes da mudança: `backups/conteudo-pt-2026-10-23.json` (pasta fora do Git).
+- **Exemplos dos campos do painel** em inglês, para guiar o que o usuário escreve.
+- **Conferido** com o conteúdo novo: redirecionamentos (308), páginas 200, sitemap e canônicos em inglês, nenhuma palavra em português no texto visível, nos `aria-label`, `alt` e `placeholder` (fora nomes próprios e o e-mail provisório `contato@example.com`), vídeo com som e sem erros no console.
+
 ## Fontes da pesquisa
 
 - [Next.js 16](https://nextjs.org/blog/next-16) · [revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag) · [proxy](https://nextjs.org/docs/app/api-reference/file-conventions/proxy) · [rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites)

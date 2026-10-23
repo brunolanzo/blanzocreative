@@ -23,7 +23,7 @@ export function SiteFooter({ data }: { data: ResolvedSettings }) {
               <Display as="p" size="m" accent className="max-w-[16ch]">
                 {cta}
               </Display>
-              <Button href="/contato" size="lg">
+              <Button href="/contact" size="lg">
                 {ui.startProject}
               </Button>
             </Reveal>

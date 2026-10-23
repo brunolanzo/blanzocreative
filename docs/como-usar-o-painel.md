@@ -2,6 +2,11 @@
 
 Tudo o que aparece no site é editado no painel, sem mexer em código.
 
+**O site é só em inglês.** O painel continua em português, mas tudo o que você escreve nele aparece no site: títulos, textos, legendas, créditos e textos alternativos vão em inglês. Os exemplos dentro dos campos já estão em inglês.
+
+- **Tom:** o do design system. Primeira pessoa do singular ("I direct", nunca "we"), títulos em minúsculas, frases curtas, sem ponto de exclamação nem emoji.
+- **Nomes próprios** ficam como são, como o nome de uma campanha ou de um cliente.
+
 ## Entrar
 
 - Endereço: o do seu site com `/admin` no final (ex.: `https://blanzocreative.netlify.app/admin`).
@@ -65,7 +70,7 @@ O projeto entra na lista na posição de cima. Arraste para a posição que quis
 ## Thumb, preview e mídia de abertura
 
 - **Thumb do card** (obrigatória):
-  - aparece nos grids da home e de /trabalhos;
+  - aparece nos grids da home e de /work;
   - pode ser imagem, GIF ou vídeo curto em loop (sem som);
   - proporção **3:2**, pelo menos **1800 × 1200 px**.
 - **Vídeo de preview** (opcional): toca por cima da thumb quando o mouse passa no card (no celular, quando o card está no meio da tela). Use um loop de **5 a 10 segundos, sem som**.
@@ -141,7 +146,7 @@ Na aba **Página**, em **Corpo da página**, clique em **Adicionar item** e esco
 - Toca sozinho quando metade dele aparece na tela e pausa quando sai.
 - Os navegadores só deixam um vídeo começar sozinho **com som** se a pessoa já clicou ou tocou em algo do site. Rolar a página não conta.
   - Quem chega navegando pelo site (clicando no card do projeto, por exemplo) já clicou: o vídeo começa com som.
-  - Quem abre o link direto e só rola: o vídeo começa sem som, e o botão "Ativar som" (ou o volume da barra) liga o áudio.
+  - Quem abre o link direto e só rola: o vídeo começa sem som, e o botão "Sound on" (ou o volume da barra) liga o áudio.
 - Um som por vez: o vídeo que começa com som silencia os outros. Se a pessoa desligar o som de um vídeo, os próximos começam sem som.
 - Com **movimento reduzido** ligado no sistema da pessoa, nada toca sozinho: ela dá o play.
 
@@ -202,7 +207,7 @@ Em **Configurações do site → Cursor** (vem desligado):
 - **Sobre links e cards:** um texto curto (ex.: "ver") ou outra imagem;
 - **Movimento:** colado ao mouse ou seguindo com leve atraso.
 
-O cursor não aparece em celular nem para quem pede menos animação no sistema. Sobre a galeria e o "antes e depois", ele mostra "Arraste".
+O cursor não aparece em celular nem para quem pede menos animação no sistema. Sobre a galeria e o "antes e depois", ele mostra "Drag".
 
 ## Reel da home e seções
 
@@ -218,11 +223,11 @@ Em **Configurações do site → Home**:
 
 ## Outras configurações
 
-- **Página Trabalhos:** título e introdução do topo de /trabalhos.
+- **Página Trabalhos:** título e introdução do topo de /work.
 - **Contato e redes:** e-mail, WhatsApp (só números: 55 + DDD + número), LinkedIn, Instagram, Vimeo e Behance. Valem para o site todo.
 - **Rodapé:** a frase grande antes do rodapé e o nome no copyright (o ano é automático).
 - **SEO padrão:** título, descrição e imagem de compartilhamento (1200 × 630) usados quando uma página não tem os seus.
-- **Textos da interface:** todos os textos de botões e rótulos ("Ver todos os trabalhos", "Ativar som"…). Mude o valor para trocar no site.
+- **Textos da interface:** todos os textos de botões e rótulos, em inglês ("All projects", "Sound on"…). O nome de cada campo, em português, diz onde o texto aparece. Mude o valor para trocar no site.
 
 ---
 

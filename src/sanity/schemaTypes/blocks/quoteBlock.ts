@@ -15,7 +15,7 @@ export const quoteBlock = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({ name: 'author', title: 'Autor', type: 'string' }),
-    defineField({ name: 'role', title: 'Cargo e empresa', type: 'string', description: 'Ex.: Head de Marketing, Ondina Bebidas.' }),
+    defineField({ name: 'role', title: 'Cargo e empresa', type: 'string', description: 'Ex.: Head of Marketing, Ondina Bebidas.' }),
     defineField({ name: 'options', title: 'Opções do bloco', type: 'blockOptions' }),
   ],
   preview: {

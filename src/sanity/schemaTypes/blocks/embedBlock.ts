@@ -34,7 +34,7 @@ export const embedBlock = defineType({
       name: 'title',
       title: 'Título do vídeo',
       type: 'string',
-      description: 'Para leitores de tela. Ex.: "Filme de lançamento da linha solar".',
+      description: 'Para leitores de tela, em inglês. Ex.: "Launch film for the solar line".',
     }),
     defineField({
       name: 'aspect',

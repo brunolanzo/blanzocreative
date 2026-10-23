@@ -12,7 +12,7 @@ export const contactPage = defineType({
       name: 'title',
       title: 'Título da página',
       type: 'string',
-      description: 'Aparece grande, em minúsculas. Ex.: "me conta o que precisa se mexer".',
+      description: 'Aparece grande, em minúsculas. Ex.: "tell me what it should feel like".',
     }),
     defineField({ name: 'intro', title: 'Texto de introdução', type: 'text', rows: 3 }),
     defineField({

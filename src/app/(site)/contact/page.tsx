@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: stegaClean(page?.seo?.title) || ui.navContact,
     description: stegaClean(page?.seo?.description || page?.intro || '').slice(0, 160) || undefined,
-    alternates: { canonical: '/contato' },
+    alternates: { canonical: '/contact' },
   }
 }
 

@@ -28,3 +28,6 @@ next-env.d.ts
 *.log
 .vercel
 .netlify
+
+# Cópias locais do conteúdo do Sanity (não vão para o GitHub)
+/backups/

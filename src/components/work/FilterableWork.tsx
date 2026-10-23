@@ -41,7 +41,7 @@ function homeSelection(projects: ProjectCardData[], featured: ProjectCardData[],
 }
 
 /**
- * Grid de projetos com filtro por tag, igual na home e em /trabalhos.
+ * Grid de projetos com filtro por tag, igual na home e em /work.
  * A troca de filtro anima sem pulo de layout: os cards que saem somem, os que ficam
  * deslizam até o lugar novo (GSAP Flip) e a altura do grid acompanha.
  */
@@ -88,7 +88,7 @@ export function FilterableWork(props: FilterableWorkProps) {
     if (documentTitle) document.title = documentTitle
   }, [documentTitle])
 
-  // Voltar/avançar do navegador em /trabalhos: anima a troca e volta ao primeiro lote.
+  // Voltar/avançar do navegador em /work: anima a troca e volta ao primeiro lote.
   useEffect(() => {
     if (mode !== 'index') return
     return onBeforeUrlTagChange(() => {
@@ -181,7 +181,7 @@ export function FilterableWork(props: FilterableWorkProps) {
     setShown((count) => count + pageSize)
   }
 
-  const viewAllHref = activeTag ? `/trabalhos?tag=${activeTag}` : '/trabalhos'
+  const viewAllHref = activeTag ? `/work?tag=${activeTag}` : '/work'
 
   return (
     <div>

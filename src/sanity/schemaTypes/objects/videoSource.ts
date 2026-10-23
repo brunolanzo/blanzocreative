@@ -104,7 +104,7 @@ export const videoSource = defineType({
       name: 'label',
       title: 'Descrição do vídeo',
       type: 'string',
-      description: 'Uma frase sobre o que acontece no vídeo, para leitores de tela. Ex.: "Reel 2026 com trabalhos de motion e 3D".',
+      description: 'Uma frase sobre o que acontece no vídeo, para leitores de tela. Ex.: "2026 reel with motion and 3D work".',
     }),
   ],
   validation: (rule) =>

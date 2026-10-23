@@ -16,15 +16,25 @@ const nextConfig: NextConfig = {
     // O CSS do site (~10 KB comprimido) vai dentro do HTML: a primeira pintura não espera outro arquivo.
     inlineCss: true,
   },
+  async redirects() {
+    // Endereços da versão em português do site (até 23/10/2026): links antigos continuam funcionando.
+    // A query (?tag=…) passa adiante sozinha.
+    return [
+      { source: '/trabalhos', destination: '/work', permanent: true },
+      { source: '/trabalhos/:slug', destination: '/work/:slug', permanent: true },
+      { source: '/sobre', destination: '/about', permanent: true },
+      { source: '/contato', destination: '/contact', permanent: true },
+    ]
+  },
   async rewrites() {
     return {
-      // /trabalhos?tag=ia mostra a página já filtrada (gerada e guardada em cache por tag),
-      // sem mudar a URL. "beforeFiles" porque /trabalhos também existe como página.
+      // /work?tag=ai mostra a página já filtrada (gerada e guardada em cache por tag),
+      // sem mudar a URL. "beforeFiles" porque /work também existe como página.
       beforeFiles: [
         {
-          source: '/trabalhos',
+          source: '/work',
           has: [{ type: 'query', key: 'tag', value: '(?<tag>[a-z0-9-]+)' }],
-          destination: '/trabalhos/filtro/:tag',
+          destination: '/work/filter/:tag',
         },
       ],
     }
@@ -33,8 +43,8 @@ const nextConfig: NextConfig = {
     return [
       {
         // O cache do CDN do Netlify ignora parâmetros de URL que não são do Next;
-        // sem isto, /trabalhos?tag=ia poderia receber a página sem filtro.
-        source: '/trabalhos',
+        // sem isto, /work?tag=ai poderia receber a página sem filtro.
+        source: '/work',
         headers: [{ key: 'Netlify-Vary', value: 'query=tag' }],
       },
     ]

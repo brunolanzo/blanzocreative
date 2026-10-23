@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: 'website',
-      locale: 'pt_BR',
+      locale: 'en_US',
       siteName,
       images: settings?.seo?.image ? [{ url: settings.seo.image }] : undefined,
     },
@@ -45,14 +45,14 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
   const [data, preview] = await Promise.all([getSettings(), draftMode()])
   const { settings, ui, siteName, socials, whatsappUrl } = data
   const nav = [
-    { href: '/trabalhos', label: ui.navWork },
-    { href: '/sobre', label: ui.navAbout },
-    { href: '/contato', label: ui.navContact },
+    { href: '/work', label: ui.navWork },
+    { href: '/about', label: ui.navAbout },
+    { href: '/contact', label: ui.navContact },
   ]
 
   return (
     // suppressHydrationWarning: a intro da home marca o <html> (data-intro) antes da hidratação.
-    <html lang="pt-BR" className={manrope.variable} suppressHydrationWarning>
+    <html lang="en" className={manrope.variable} suppressHydrationWarning>
       <body>
         {/* Decide antes da primeira pintura se a intro da home aparece (ver intro-gate.ts). */}
         <script dangerouslySetInnerHTML={{ __html: INTRO_GATE_SCRIPT }} />

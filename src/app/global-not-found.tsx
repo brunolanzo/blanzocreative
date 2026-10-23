@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function GlobalNotFound() {
   const { ui } = await getSettings()
   return (
-    <html lang="pt-BR" className={manrope.variable}>
+    <html lang="en" className={manrope.variable}>
       <body>
         <main className="container-site flex min-h-svh flex-col items-start justify-end gap-32 py-section">
           <p className="text-label font-medium text-accent uppercase">404</p>

@@ -31,7 +31,7 @@ type ProjectCardProps = {
   onTagClick?: (slug: string) => void
   /** Link que leva ao projeto (para lembrar de qual lista a pessoa veio). */
   onOpen?: () => void
-  /** Nível do título: h3 sob um h2 de seção (home, relacionados); h2 direto sob o h1 (/trabalhos). */
+  /** Nível do título: h3 sob um h2 de seção (home, relacionados); h2 direto sob o h1 (/work). */
   headingLevel?: 'h2' | 'h3'
 }
 
@@ -72,7 +72,7 @@ export function ProjectCard({
   }, [usesFocus])
 
   const active = autoplay && (canHover ? hovered : centered)
-  const href = `/trabalhos/${project.slug}`
+  const href = `/work/${project.slug}`
   const posterUrl = thumbIsVideo ? videoPoster(thumbnail?.video, 1200) : undefined
 
   function handleTag(event: MouseEvent<HTMLAnchorElement>, slug: string) {
@@ -131,7 +131,7 @@ export function ProjectCard({
               tag.slug && (
                 <li key={tag._id}>
                   <AppLink
-                    href={`/trabalhos?tag=${tag.slug}`}
+                    href={`/work?tag=${tag.slug}`}
                     onClick={(event) => handleTag(event, tag.slug as string)}
                     className="inline-flex items-center rounded-pill border border-hairline px-[10px] py-4 text-label-s font-medium leading-none text-fg-secondary uppercase transition-colors duration-220 ease-out hover:border-flash-500 hover:text-flash-500"
                   >

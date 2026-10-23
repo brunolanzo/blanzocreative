@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from 'react'
 
 /**
- * A tag ativa de /trabalhos vive na URL (?tag=ia): o link filtrado pode ser enviado
+ * A tag ativa de /work vive na URL (?tag=ia): o link filtrado pode ser enviado
  * a alguém e voltar/avançar do navegador funcionam. A troca usa history.pushState,
  * que o Next integra ao roteador sem recarregar a página.
  */

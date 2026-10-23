@@ -11,7 +11,7 @@ export const credit = defineType({
       name: 'role',
       title: 'Função',
       type: 'string',
-      description: 'Ex.: Direção criativa, Animação 3D, Fotografia.',
+      description: 'Ex.: Creative direction, 3D animation, Photography.',
       validation: (rule) => rule.required(),
     }),
     defineField({

@@ -12,7 +12,7 @@ export async function getWorkData() {
 }
 
 /**
- * Página /trabalhos: título e introdução (Configurações → Página Trabalhos),
+ * Página /work: título e introdução (Configurações → Página Trabalhos),
  * barra de tags e o grid com "carregar mais". Já sai do servidor com o filtro aplicado.
  */
 export async function WorkIndex({ tag }: { tag: string | null }) {
