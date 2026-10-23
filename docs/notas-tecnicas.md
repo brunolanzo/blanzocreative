@@ -309,6 +309,7 @@ A pedido do usuário, o site público passou a ser só em inglês. O painel (Stu
   - Ficaram como estavam os nomes próprios: o título da campanha "Aura Irreproduzível" (o jogo de palavras a.ura i.rreproduzível só funciona em português), nomes de clientes e de pessoas.
   - Cópia do conteúdo em português antes da mudança: `backups/conteudo-pt-2026-10-23.json` (pasta fora do Git).
 - **Exemplos dos campos do painel** em inglês, para guiar o que o usuário escreve.
+- **Seed e mídias provisórias em inglês:** o conteúdo de exemplo do seed foi traduzido. As tags ganharam `id` (estável, igual ao `_id` do site, ex.: `tag-ia`) separado do `slug` em inglês (`ai`), para o seed não duplicar tags. Os textos desenhados pelo gerador de placeholders também. O reel, o poster, o retrato e a imagem de compartilhamento do site eram esses placeholders, com texto em português dentro da imagem: foram gerados de novo e trocados no painel. Os arquivos antigos continuam na biblioteca de mídia do Sanity, sem uso.
 - **Conferido** com o conteúdo novo: redirecionamentos (308), páginas 200, sitemap e canônicos em inglês, nenhuma palavra em português no texto visível, nos `aria-label`, `alt` e `placeholder` (fora nomes próprios e o e-mail provisório `contato@example.com`), vídeo com som e sem erros no console.
 
 ## Fontes da pesquisa
