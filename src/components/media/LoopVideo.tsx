@@ -21,8 +21,15 @@ type LoopVideoProps = {
   /** Deve tocar agora? (visível, em hover, centralizado…). */
   play: boolean
   muted?: boolean
+  /**
+   * Ao começar a tocar sozinho, tenta com som. O navegador só deixa depois de a pessoa clicar ou tocar
+   * em algo do site; se recusar, o vídeo toca sem som do mesmo jeito.
+   */
+  autoSound?: boolean
   loop?: boolean
   controls?: boolean
+  /** Imagem que o player mostra enquanto carrega (vídeo com controles fica visível desde o começo). */
+  poster?: string
   /** "metadata" só para vídeo com controles (mostra a duração); o resto não baixa nada antes de tocar. */
   preload?: 'none' | 'metadata'
   className?: string
@@ -30,6 +37,10 @@ type LoopVideoProps = {
   onPlaying?: (playing: boolean) => void
   /** O navegador recusou tocar sozinho (ex.: iPhone em economia de energia). */
   onBlocked?: () => void
+  /** Resultado do `autoSound`: começou com som (true) ou o navegador exigiu começar sem som (false). */
+  onAutoSound?: (withSound: boolean) => void
+  /** A pessoa ligou ou desligou o som na barra do navegador. */
+  onUserMute?: (muted: boolean) => void
   ref?: Ref<LoopVideoHandle>
 }
 
@@ -54,12 +65,16 @@ export function LoopVideo({
   mode = 'loop',
   play,
   muted = true,
+  autoSound = false,
   loop = true,
   controls = false,
+  poster,
   preload = 'none',
   className,
   onPlaying,
   onBlocked,
+  onAutoSound,
+  onUserMute,
   ref,
 }: LoopVideoProps) {
   const element = useRef<HTMLVideoElement>(null)
@@ -72,11 +87,13 @@ export function LoopVideo({
   const alive = useRef(false)
   // Cada preparo de fonte ganha um número; só o mais recente pode terminar de ligar o vídeo.
   const generation = useRef(0)
+  // O som que o site pôs no vídeo: diferença no "volumechange" quer dizer que foi a pessoa, na barra do navegador.
+  const expectedMuted = useRef(muted)
   const source = resolveVideo(video, mode)
-  const callbacks = useRef({ onPlaying, onBlocked })
+  const callbacks = useRef({ onPlaying, onBlocked, onAutoSound, onUserMute, autoSound })
 
   useEffect(() => {
-    callbacks.current = { onPlaying, onBlocked }
+    callbacks.current = { onPlaying, onBlocked, onAutoSound, onUserMute, autoSound }
   })
 
   useEffect(() => {
@@ -117,15 +134,44 @@ export function LoopVideo({
     media.src = target.src
   }
 
-  function tryPlay() {
-    element.current?.play().catch((error: unknown) => {
+  function setMediaMuted(media: HTMLVideoElement, value: boolean) {
+    expectedMuted.current = value
+    media.muted = value
+  }
+
+  function playAsIs(media: HTMLVideoElement) {
+    media.play().catch((error: unknown) => {
       if (error instanceof DOMException && error.name === 'NotAllowedError') callbacks.current.onBlocked?.()
     })
   }
 
+  function tryPlay() {
+    const media = element.current
+    if (!media) return
+    if (!callbacks.current.autoSound || !media.muted) return playAsIs(media)
+    // Tenta com som. Se a pessoa ainda não clicou em nada do site, o navegador recusa: aí toca sem som.
+    setMediaMuted(media, false)
+    media.play().then(
+      () => callbacks.current.onAutoSound?.(true),
+      (error: unknown) => {
+        setMediaMuted(media, true)
+        if (!(error instanceof DOMException && error.name === 'NotAllowedError')) return
+        callbacks.current.onAutoSound?.(false)
+        playAsIs(media)
+      },
+    )
+  }
+
+  function onVolumeChange() {
+    const media = element.current
+    if (!media || media.muted === expectedMuted.current) return
+    expectedMuted.current = media.muted
+    callbacks.current.onUserMute?.(media.muted)
+  }
+
   useImperativeHandle(ref, () => ({
     setMuted(value) {
-      if (element.current) element.current.muted = value
+      if (element.current) setMediaMuted(element.current, value)
     },
     prime() {
       if (attached.current === 'none') void attach('primary', { deferLoad: true })
@@ -163,7 +209,7 @@ export function LoopVideo({
   }, [play])
 
   useEffect(() => {
-    if (element.current) element.current.muted = muted
+    if (element.current) setMediaMuted(element.current, muted)
   }, [muted])
 
   function onPlay() {
@@ -189,12 +235,14 @@ export function LoopVideo({
       muted={muted}
       loop={loop}
       controls={controls}
+      poster={poster}
       playsInline
       preload={preload}
       aria-label={video.label ?? undefined}
       onPlay={onPlay}
       onPlaying={() => callbacks.current.onPlaying?.(true)}
       onPause={() => callbacks.current.onPlaying?.(false)}
+      onVolumeChange={onVolumeChange}
       onError={onError}
     />
   )

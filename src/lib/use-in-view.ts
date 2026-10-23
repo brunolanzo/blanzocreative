@@ -4,6 +4,7 @@ import { type RefObject, useEffect, useState } from 'react'
 
 /**
  * O elemento está na tela? (com margem, para começar a carregar um pouco antes).
+ * `threshold` é a fração do elemento que precisa aparecer (0 = qualquer pedaço).
  * Com `once`, vira true na primeira vez que aparece e fica assim.
  */
 export function useInView<T extends Element>(
@@ -17,13 +18,15 @@ export function useInView<T extends Element>(
     if (!element) return
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // isIntersecting já é true com 1px na tela; a fração pedida vem do intersectionRatio.
+        const visible = entry.isIntersecting && entry.intersectionRatio >= threshold - 0.01
         if (once) {
-          if (!entry.isIntersecting) return
+          if (!visible) return
           setInView(true)
           observer.disconnect()
           return
         }
-        setInView(entry.isIntersecting)
+        setInView(visible)
       },
       { rootMargin, threshold },
     )

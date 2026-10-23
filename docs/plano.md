@@ -234,6 +234,7 @@ Legenda:
 
 - No mobile: o título vem antes da ficha, a ficha empilha em 2 colunas curtas e todos os blocos empilham.
 - **Vídeos do projeto (Fase 4):** seguem o padrão escolhido para a home. Tocam sozinhos e o único controle é "Ativar som", discreto; o "Pausar" do wireframe saiu. Vídeo marcado com "controles completos" usa a barra do navegador e não toca sozinho.
+  - **Mudança de 23/10/2026, a pedido do usuário:** os vídeos de projeto (bloco Vídeo e mídia de abertura) tentam começar **com som** quando aparecem na tela, e os com "controles completos" também tocam sozinhos. Se o navegador recusar o som (a pessoa ainda não clicou em nada do site), tocam sem som, com "Ativar som". O reel da home e os loops continuam começando sem som.
 - A composição livre segue a ordem da lista. Os relacionados viram uma coluna.
 
 ---

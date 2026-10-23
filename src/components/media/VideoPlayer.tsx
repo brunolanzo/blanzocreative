@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/cn'
 import { useAutoplayAllowed } from '@/lib/environment'
 import { resolveVideo, type VideoData, videoPoster } from '@/lib/media'
-import { useSound } from '@/lib/sound'
+import { soundOptedOut, useSound } from '@/lib/sound'
 import type { UiStrings } from '@/lib/ui-strings'
 import { useInView } from '@/lib/use-in-view'
 import { ControlPill } from './ControlPill'
@@ -18,7 +18,7 @@ type VideoPlayerProps = {
   rounded?: boolean
   /** Mídia principal da página (abertura do projeto): o poster carrega antes de tudo. */
   priority?: boolean
-  /** Controles completos do navegador (tempo, volume, tela cheia). Nesse caso não toca sozinho. */
+  /** Controles completos do navegador (tempo, volume, tela cheia), além do play automático. */
   controls?: boolean
   loop?: boolean
   soundButton?: boolean
@@ -28,10 +28,13 @@ type VideoPlayerProps = {
 
 /**
  * Vídeo das páginas (abertura do projeto e bloco de vídeo).
- * Sem controles: toca sozinho, sem som e em loop enquanto aparece na tela; o único controle
- * é o de som, discreto, como no reel da home.
- * Com controles: mostra o poster e a barra do navegador, e a pessoa dá o play (com som).
- * Um som por vez: ligar o som aqui silencia os outros vídeos da página.
+ * Toca sozinho enquanto aparece na tela. Vídeo com som tenta começar com som: o navegador só deixa
+ * depois de a pessoa clicar ou tocar em algo do site (quem chega pelo card do projeto já clicou).
+ * Se recusar, toca sem som e o "Ativar som" liga o áudio.
+ * Sem controles, o único controle é o de som, discreto, como no reel da home.
+ * Com controles, a barra do navegador também aparece (tempo, volume, tela cheia).
+ * Um som por vez: o vídeo que liga o som silencia os outros. Quem desliga o som de um vídeo
+ * não ouve os próximos começarem com som.
  */
 export function VideoPlayer({
   video,
@@ -46,37 +49,46 @@ export function VideoPlayer({
 }: VideoPlayerProps) {
   const box = useRef<HTMLDivElement>(null)
   const player = useRef<LoopVideoHandle>(null)
-  const hadSound = useRef(false)
-  const visible = useInView(box, { threshold: 0.2 })
-  // Player com controles fica montado depois de aparecer: rolar a página não interrompe quem está assistindo.
+  const source = resolveVideo(video, controls ? 'player' : 'loop')
+  const wantsSound = video.hasAudio !== false && source?.kind !== 'vimeo' && (controls || soundButton)
+  // Vídeo com som só toca com metade dele na tela: o áudio não começa com um pedacinho aparecendo.
+  const visible = useInView(box, { threshold: wantsSound ? 0.5 : 0.2 })
   const seen = useInView(box, { threshold: 0.2, once: true })
   const autoplay = useAutoplayAllowed()
   const sound = useSound()
-  // A pessoa já interagiu (ativou o som ou tocou no vídeo depois de o navegador recusar o autoplay).
+  // A pessoa já interagiu (ativou o som, deu play ou tocou no vídeo depois de o navegador recusar o autoplay).
   const [started, setStarted] = useState(false)
   const [blocked, setBlocked] = useState(false)
+  // Pausou na barra do navegador (ou o vídeo sem loop terminou): não volta a tocar sozinho.
+  const [userPaused, setUserPaused] = useState(false)
   const [playing, setPlaying] = useState(false)
 
-  const source = resolveVideo(video, controls ? 'player' : 'loop')
   const poster = videoPoster(video, priority ? 2400 : 1920)
-  const play = !controls && visible && (autoplay || started) && !blocked
+  const play = visible && (autoplay || started) && !blocked && !userPaused
   const showSound = !controls && soundButton && video.hasAudio !== false && source?.kind !== 'vimeo'
+  // O "pause" chega depois da renderização: compara com o pedido de tocar daquele momento.
+  const playRef = useRef(play)
+  useEffect(() => {
+    playRef.current = play
+  })
 
-  // Com controles, o endereço entra quando o vídeo aparece: o play nativo precisa dele.
+  // Com controles, o endereço entra quando o vídeo aparece: o play da barra precisa dele
+  // (movimento reduzido ou economia de dados, quando nada toca sozinho).
   useEffect(() => {
     if (controls && seen) player.current?.prime()
   }, [controls, seen])
 
-  // Outro vídeo ligou o som: o vídeo com controles que tocava com som pausa.
-  useEffect(() => {
-    if (!controls) return
-    if (!sound.muted) {
-      hadSound.current = true
-    } else if (hadSound.current) {
-      hadSound.current = false
-      player.current?.pause()
+  function handlePlaying(value: boolean) {
+    setPlaying(value)
+    if (value) {
+      // Play dado na barra do navegador: com o clique, o som pode vir junto.
+      if (controls && !playRef.current && wantsSound && !soundOptedOut()) sound.claim()
+      setStarted(true)
+      setUserPaused(false)
+    } else if (controls && playRef.current) {
+      setUserPaused(true)
     }
-  }, [controls, sound.muted])
+  }
 
   function toggleSound() {
     const turningOn = sound.muted
@@ -132,15 +144,18 @@ export function VideoPlayer({
               video={video}
               mode={controls ? 'player' : 'loop'}
               play={play}
-              muted={controls ? false : sound.muted}
+              muted={sound.muted}
+              autoSound={wantsSound && !soundOptedOut()}
               loop={loop}
               controls={controls}
+              poster={controls ? poster : undefined}
               preload={controls ? 'metadata' : 'none'}
-              onPlaying={(value) => {
-                setPlaying(value)
-                if (value && controls) sound.claim()
-              }}
+              onPlaying={handlePlaying}
               onBlocked={() => setBlocked(true)}
+              onAutoSound={(withSound) => {
+                if (withSound) sound.claim()
+              }}
+              onUserMute={(muted) => sound.choose(!muted)}
               className={cn(
                 fill,
                 controls

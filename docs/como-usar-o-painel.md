@@ -72,7 +72,7 @@ O projeto entra na lista na posição de cima. Arraste para a posição que quis
 - **Mídia de abertura**:
   - a primeira mídia da página do projeto, na largura do conteúdo;
   - imagem com pelo menos **2400 px de largura**, ou vídeo;
-  - o vídeo toca sozinho, sem som, com o botão "Ativar som" no canto.
+  - o vídeo toca sozinho, com som quando o navegador deixa (veja "Vídeo com som" abaixo), e tem o botão de som no canto.
 
 ## Vídeos: de onde vêm
 
@@ -123,7 +123,7 @@ Na aba **Página**, em **Corpo da página**, clique em **Adicionar item** e esco
 
 | Bloco | O que faz |
 |---|---|
-| **Vídeo** | Toca sozinho, sem som e em loop (com botão de som). Com "controles completos", mostra a barra do navegador e espera a pessoa dar o play. Escolha a proporção. |
+| **Vídeo** | Toca sozinho quando aparece na tela, em loop, e começa com som quando o navegador deixa. Tem o botão de som; com "controles completos", mostra no lugar a barra do navegador (tempo, volume, tela cheia). Escolha a proporção. |
 | **Imagem** | Uma imagem ou GIF. |
 | **Mosaico** | Várias mídias juntas: 2, 3 ou 4 colunas, masonry (alturas livres), ou destaque + 2 ou + 4 menores. |
 | **Lado a lado** | Duas mídias: 50/50, 60/40 ou 40/60. |
@@ -135,6 +135,15 @@ Na aba **Página**, em **Corpo da página**, clique em **Adicionar item** e esco
 | **Créditos** | Uma ficha técnica no meio da página. |
 | **Embed** | Link do Vimeo ou YouTube. O player só carrega quando a pessoa clica. |
 | **Espaçador / divisor** | Espaço vazio entre blocos, com linha opcional. |
+
+**Vídeo com som** (bloco Vídeo e mídia de abertura):
+
+- Toca sozinho quando metade dele aparece na tela e pausa quando sai.
+- Os navegadores só deixam um vídeo começar sozinho **com som** se a pessoa já clicou ou tocou em algo do site. Rolar a página não conta.
+  - Quem chega navegando pelo site (clicando no card do projeto, por exemplo) já clicou: o vídeo começa com som.
+  - Quem abre o link direto e só rola: o vídeo começa sem som, e o botão "Ativar som" (ou o volume da barra) liga o áudio.
+- Um som por vez: o vídeo que começa com som silencia os outros. Se a pessoa desligar o som de um vídeo, os próximos começam sem som.
+- Com **movimento reduzido** ligado no sistema da pessoa, nada toca sozinho: ela dá o play.
 
 Todo bloco (menos o espaçador) tem **Opções do bloco**:
 

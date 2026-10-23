@@ -68,6 +68,8 @@ scripts/seed/          conteúdo de exemplo (content.ts) e envio ao Sanity (inde
 - **Peso do JavaScript:** nada do `next-sanity/hooks` ou `@sanity/visual-editing` em componentes do site: eles trazem ~200 KB para todas as visitas. As ferramentas da pré-visualização só carregam com o draft mode ligado.
 - **Cursor customizado:** desligado por padrão (Configurações → Cursor). Áreas de arrastar levam `data-cursor-drag` (o cursor mostra "Arraste"); links e botões mostram o texto ou a imagem de hover.
 - **Vídeo:** sempre pelo `LoopVideo`/`MediaView` (carrega só quando vai tocar, pausa fora da tela). Vídeo com som chama `useSound()`/`claimSound()` para silenciar os outros.
+  - Vídeos de projeto (`VideoPlayer`) tentam começar com som (`autoSound`): o navegador só deixa depois de um clique no site; se recusar, tocam sem som. O reel da home e os loops começam sem som.
+  - HLS (Mux): nativo só no Safari; no resto, o hls.js **completo** (o light não carrega a faixa de áudio separada do Mux).
 
 ## Dados (Sanity)
 

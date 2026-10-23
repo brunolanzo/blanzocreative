@@ -85,7 +85,7 @@ Se a pré-visualização não abrir, siga em frente: o passo 6 é o teste de ver
 2. Espere alguns segundos e abra `https://blanzocreative.netlify.app/trabalhos/` com o endereço do projeto no final.
 3. Confira no computador e no celular:
    - textos e créditos;
-   - imagens e vídeos;
+   - imagens e vídeos. Abrindo o link direto, o vídeo começa sem som (regra dos navegadores). Para ver com som, chegue pelo site: clique no card do projeto em `/trabalhos`;
    - o botão "Ativar som";
    - o "próximo projeto" no fim da página.
 4. Para ajustar, mude no painel e clique em **Publicar** de novo. A página atualiza em até um minuto. Se não atualizar, recarregue com **Cmd+Shift+R**.

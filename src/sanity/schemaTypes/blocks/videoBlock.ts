@@ -8,7 +8,8 @@ export const videoBlock = defineType({
   title: 'Vídeo',
   type: 'object',
   icon: PlayIcon,
-  description: 'Toca sozinho, sem som e em loop, e só enquanto aparece na tela. Ativar o som de um vídeo silencia os outros.',
+  description:
+    'Toca sozinho enquanto aparece na tela. Começa com som quando o navegador deixa (a pessoa já clicou em algo do site); senão, sem som, com o botão "Ativar som". Um som por vez.',
   fields: [
     defineField({ name: 'video', title: 'Vídeo', type: 'videoSource', validation: (rule) => rule.required() }),
     defineField({
@@ -23,6 +24,7 @@ export const videoBlock = defineType({
       title: 'Mostrar botão de som',
       type: 'boolean',
       initialValue: true,
+      description: 'Sem o botão (e sem os controles completos), o vídeo toca sempre sem som.',
     }),
     defineField({
       name: 'controls',
@@ -30,7 +32,7 @@ export const videoBlock = defineType({
       type: 'boolean',
       initialValue: false,
       description:
-        'Barra com tempo, volume e tela cheia. Com ela, o vídeo não toca sozinho: espera a pessoa dar o play, já com som. Bom para vídeos longos, que a pessoa assiste do começo ao fim.',
+        'Barra do navegador com tempo, volume e tela cheia, no lugar do botão de som. O vídeo continua tocando sozinho. Bom para vídeos longos, que a pessoa assiste do começo ao fim.',
     }),
     defineField({ name: 'loop', title: 'Repetir (loop)', type: 'boolean', initialValue: true }),
     defineField({ name: 'options', title: 'Opções do bloco', type: 'blockOptions' }),
